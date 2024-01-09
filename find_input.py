@@ -3,7 +3,7 @@ from bs4 import BeautifulSoup
 import os
 
 # 여기에 URL을 입력
-user_provided_url = "김원태"
+user_provided_url = "https://www.naver.com/"
 
 def save_input_tags_to_file(url, base_output_file):
     try:
