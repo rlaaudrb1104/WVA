@@ -52,7 +52,7 @@ def save_comments_to_file(url, base_output_file, max_depth):
 
 if __name__ == "__main__":
     # 여기에 URL을 입력
-    user_provided_url = "http://localhost/gnuboard/"
+    user_provided_url = "http://localhost/g5/"
 
     # 결과를 저장할 텍스트 파일의 기본 이름
     base_output_file = "comments"
