@@ -1,8 +1,9 @@
 import requests
+import re
 from bs4 import BeautifulSoup
 from urllib.parse import urljoin, urlparse
 
-def save_input_tags_to_html(url, max_depth=3):
+def save_comments_to_html(url, max_depth=3):
     print("now parsing...")
     visited_urls = set()
     html_content = ""
@@ -22,21 +23,17 @@ def save_input_tags_to_html(url, max_depth=3):
             # HTML 파싱
             soup = BeautifulSoup(response.text, 'html.parser')
 
-            # <input> 태그 찾기
-            input_tags = soup.find_all('input')
+            # HTML 주석 찾기
+            comments = re.findall(r'<!--(.*?)-->', response.text, re.DOTALL)
 
             # <input> 태그가 없는 페이지 필터링하기
-            if input_tags:
+            if comments:
                 # 현재 페이지 HTML에 기록하기
                 html_content += "<hr />"
-                html_content += f"<details><summary><strong>Input Tags Found at {current_url}:</strong></summary><br>"
-                for input_tag in input_tags:
-                    # <input> 태그의 속성과 값 기록하기
-                    attributes = input_tag.attrs
-                    for attr, value in attributes.items():
-                        html_content += f"  {attr}: {value}<br>"
+                html_content += f"<details><summary><strong>Comments Found at {current_url}:</strong></summary><br>"
+                for comment in comments:
+                    html_content += f"{comment}\n<br>"
                     html_content += "<br>"
-
                 html_content += "</details>"
                 html_content += "<hr />"
 
