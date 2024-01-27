@@ -29,18 +29,18 @@ def save_input_tags_to_html(url, max_depth=3):
             if input_tags:
                 # 현재 페이지 HTML에 기록하기
                 input_tags_content += "<hr />"
-                input_tags_content += f"<div><strong>Input Tags Found at {current_url}:</strong><br>"
+                input_tags_content += f"&nbsp;&nbsp;<details><summary><strong>Input Tags Found at {current_url}</strong></summary>"
                 input_tags_content += "<hr />"
                 for input_tag in input_tags:
                     # <input> 태그의 속성과 값 기록하기
                     attributes = input_tag.attrs
                     for attr, value in attributes.items():
-                        input_tags_content += f"  {attr}: {value}<br>"
+                        input_tags_content += f"  &nbsp;&nbsp;{attr}: {value}<br>"
                     input_tags_content += "<br>"
 
-                input_tags_content += "</div>"
+                input_tags_content += "</details>"
                 input_tags_content += "<hr />"
-
+                input_tags_content += "<br>"
             # 현재 URL을 방문한 것으로 표시
             visited_urls.add(current_url)
 
@@ -61,4 +61,4 @@ def save_input_tags_to_html(url, max_depth=3):
     # 최초의 URL에서 시작
     dfs_crawl(url, 0)
 
-    return input_tags_content if input_tags_content else "<h2>Input 태그가 없습니다.</h2>"
+    return input_tags_content if input_tags_content else "<h>Input 태그가 없습니다.</h>"
