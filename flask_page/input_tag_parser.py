@@ -5,10 +5,10 @@ from urllib.parse import urljoin, urlparse
 def save_input_tags_to_html(url, max_depth=3):
     print("now parsing...")
     visited_urls = set()
-    html_content = ""
+    input_tags_content = ""
 
     def dfs_crawl(current_url, depth):
-        nonlocal html_content, visited_urls
+        nonlocal input_tags_content, visited_urls
 
         if current_url in visited_urls or '#' in current_url or depth > max_depth:
             return
@@ -28,17 +28,18 @@ def save_input_tags_to_html(url, max_depth=3):
             # <input> 태그가 없는 페이지 필터링하기
             if input_tags:
                 # 현재 페이지 HTML에 기록하기
-                html_content += "<hr />"
-                html_content += f"<details><summary><strong>Input Tags Found at {current_url}:</strong></summary><br>"
+                input_tags_content += "<hr />"
+                input_tags_content += f"<div><strong>Input Tags Found at {current_url}:</strong><br>"
+                input_tags_content += "<hr />"
                 for input_tag in input_tags:
                     # <input> 태그의 속성과 값 기록하기
                     attributes = input_tag.attrs
                     for attr, value in attributes.items():
-                        html_content += f"  {attr}: {value}<br>"
-                    html_content += "<br>"
+                        input_tags_content += f"  {attr}: {value}<br>"
+                    input_tags_content += "<br>"
 
-                html_content += "</details>"
-                html_content += "<hr />"
+                input_tags_content += "</div>"
+                input_tags_content += "<hr />"
 
             # 현재 URL을 방문한 것으로 표시
             visited_urls.add(current_url)
@@ -60,4 +61,4 @@ def save_input_tags_to_html(url, max_depth=3):
     # 최초의 URL에서 시작
     dfs_crawl(url, 0)
 
-    return html_content
+    return input_tags_content if input_tags_content else "<h2>Input 태그가 없습니다.</h2>"
