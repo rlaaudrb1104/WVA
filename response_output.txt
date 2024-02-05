@@ -1,0 +1,373 @@
+GET 요청 결과:
+URL: http://127.0.0.1:5000/input_tag
+HTTP 메소드: GET
+상태 코드: 200
+응답 내용:
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>WVA Tools</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      .grid-cell {
+        width: 100px;
+        height: 100px;
+      }
+    </style>
+  </head>
+  <body class="bg-gray-50 text-gray-900 font-sans">
+    <header class="bg-white shadow">
+      <nav
+        class="container mx-auto px-6 py-3 flex justify-between items-center"
+      >
+        <a href="/" class="text-3xl font-bold text-blue-600">WVA</a>
+        <div class="space-x-4">
+          <a
+            href="/input_tag"
+            class="text-blue-600 font-bold"
+            >Input Tag Crawl</a
+          >
+          <a
+            href="/comments"
+            class="text-gray-500 hover:text-blue-600 font-bold"
+            >Comments Crawl</a
+          >
+          <a
+            href="/method-check"
+            class="text-gray-500 hover:text-blue-600 font-bold"
+            >Method Check</a
+          >
+          <a
+            href="/directory-listing"
+            class="text-gray-500 hover:text-blue-600 font-bold"
+            >Directory Listing</a
+          >
+          <a
+            href="/sql-injection"
+            class="text-gray-500 hover:text-blue-600 font-bold"
+            >Sql Injection</a
+          >
+          <a href="/xss" class="text-gray-500 hover:text-blue-600 font-bold"
+            >XSS</a
+          >
+        </div>
+      </nav>
+    </header>
+    <h1 class="font-bold text-blue-600 text-3xl flex justify-center m-5">
+      Input Tag Crawl
+    </h1>
+    <p class="flex justify-center text-gray-500 m-5 text-center">
+      It will crawl all linked website with dfs algorithm.<br>
+      So, it may take some minute.
+    </p>
+    <div class="flex justify-center w-screeen">
+      <form method="post" action="/input_tag">
+        <label for="url" class="my-5 font-bold">Enter URL:</label>
+        <div class="relative box-border mt-5 mb-2">
+          <input
+            class="font-bold border-b-4 border-blue-600 w-96 h-8 rounded-full outline-0 bg-gray-200 px-5"
+            type="text"
+            id="url"
+            name="url"
+            required
+          />
+        </div>
+        <button
+          type="submit"
+          class="mb-4 bg-blue-600 font-bold text-gray-100 px-4 py-2 rounded-full hover:shadow hover:shadow-black"
+        >
+          Submit
+        </button>
+        <p>
+          <a
+            href="/"
+            class="my-2 bg-blue-600 font-bold text-gray-100 px-4 py-2 rounded-full hover:shadow hover:shadow-black"
+            >Go back to Home Page</a
+          >
+        </p>
+      </form>
+    </div>
+    <footer class="bg-white shadow mt-12 fixed bottom-0 w-full border-y-1 border-gray-300 flex justify-between">
+      <img src="/static/img/2024WVA.png", width="200px"></img>
+      <a href="javascript:window.scrollTo(0,0);" class="grid place-items-center mx-5 font-bold text-lg hover:text-blue-600">🔼TOP</a>
+    </footer>
+  </body>
+</html>
+
+POST 요청 결과:
+URL: http://127.0.0.1:5000/input_tag
+HTTP 메소드: POST
+상태 코드: 500
+응답 내용:
+<!doctype html>
+<html lang=en>
+  <head>
+    <title>werkzeug.exceptions.BadRequestKeyError: 400 Bad Request: The browser (or proxy) sent a request that this server could not understand.
+KeyError: &#39;url&#39;
+ // Werkzeug Debugger</title>
+    <link rel="stylesheet" href="?__debugger__=yes&amp;cmd=resource&amp;f=style.css">
+    <link rel="shortcut icon"
+        href="?__debugger__=yes&amp;cmd=resource&amp;f=console.png">
+    <script src="?__debugger__=yes&amp;cmd=resource&amp;f=debugger.js"></script>
+    <script>
+      var CONSOLE_MODE = false,
+          EVALEX = true,
+          EVALEX_TRUSTED = false,
+          SECRET = "isGUcgm8b5jsqXc9Fzlr";
+    </script>
+  </head>
+  <body style="background-color: #fff">
+    <div class="debugger">
+<h1>BadRequestKeyError</h1>
+<div class="detail">
+  <p class="errormsg">werkzeug.exceptions.BadRequestKeyError: 400 Bad Request: The browser (or proxy) sent a request that this server could not understand.
+KeyError: &#39;url&#39;
+</p>
+</div>
+<h2 class="traceback">Traceback <em>(most recent call last)</em></h2>
+<div class="traceback">
+  <h3></h3>
+  <ul><li><div class="frame" id="frame-2388512158864">
+  <h4>File <cite class="filename">"C:\SCP_WVA\WVA\flask_page\Lib\site-packages\flask\app.py"</cite>,
+      line <em class="line">1488</em>,
+      in <code class="function">__call__</code></h4>
+  <div class="source "><pre class="line before"><span class="ws">    </span>) -&gt; cabc.Iterable[bytes]:</pre>
+<pre class="line before"><span class="ws">        </span>&#34;&#34;&#34;The WSGI server calls the Flask application object as the</pre>
+<pre class="line before"><span class="ws">        </span>WSGI application. This calls :meth:`wsgi_app`, which can be</pre>
+<pre class="line before"><span class="ws">        </span>wrapped to apply middleware.</pre>
+<pre class="line before"><span class="ws">        </span>&#34;&#34;&#34;</pre>
+<pre class="line current"><span class="ws">        </span>return self.wsgi_app(environ, start_response)
+<span class="ws">        </span>       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^</pre></div>
+</div>
+
+<li><div class="frame" id="frame-2388512156992">
+  <h4>File <cite class="filename">"C:\SCP_WVA\WVA\flask_page\Lib\site-packages\flask\app.py"</cite>,
+      line <em class="line">1466</em>,
+      in <code class="function">wsgi_app</code></h4>
+  <div class="source "><pre class="line before"><span class="ws">            </span>try:</pre>
+<pre class="line before"><span class="ws">                </span>ctx.push()</pre>
+<pre class="line before"><span class="ws">                </span>response = self.full_dispatch_request()</pre>
+<pre class="line before"><span class="ws">            </span>except Exception as e:</pre>
+<pre class="line before"><span class="ws">                </span>error = e</pre>
+<pre class="line current"><span class="ws">                </span>response = self.handle_exception(e)
+<span class="ws">                </span>           ^^^^^^^^^^^^^^^^^^^^^^^^</pre>
+<pre class="line after"><span class="ws">            </span>except:  # noqa: B001</pre>
+<pre class="line after"><span class="ws">                </span>error = sys.exc_info()[1]</pre>
+<pre class="line after"><span class="ws">                </span>raise</pre>
+<pre class="line after"><span class="ws">            </span>return response(environ, start_response)</pre>
+<pre class="line after"><span class="ws">        </span>finally:</pre></div>
+</div>
+
+<li><div class="frame" id="frame-2388512156416">
+  <h4>File <cite class="filename">"C:\SCP_WVA\WVA\flask_page\Lib\site-packages\flask\app.py"</cite>,
+      line <em class="line">1463</em>,
+      in <code class="function">wsgi_app</code></h4>
+  <div class="source "><pre class="line before"><span class="ws">        </span>ctx = self.request_context(environ)</pre>
+<pre class="line before"><span class="ws">        </span>error: BaseException | None = None</pre>
+<pre class="line before"><span class="ws">        </span>try:</pre>
+<pre class="line before"><span class="ws">            </span>try:</pre>
+<pre class="line before"><span class="ws">                </span>ctx.push()</pre>
+<pre class="line current"><span class="ws">                </span>response = self.full_dispatch_request()
+<span class="ws">                </span>           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^</pre>
+<pre class="line after"><span class="ws">            </span>except Exception as e:</pre>
+<pre class="line after"><span class="ws">                </span>error = e</pre>
+<pre class="line after"><span class="ws">                </span>response = self.handle_exception(e)</pre>
+<pre class="line after"><span class="ws">            </span>except:  # noqa: B001</pre>
+<pre class="line after"><span class="ws">                </span>error = sys.exc_info()[1]</pre></div>
+</div>
+
+<li><div class="frame" id="frame-2388512159728">
+  <h4>File <cite class="filename">"C:\SCP_WVA\WVA\flask_page\Lib\site-packages\flask\app.py"</cite>,
+      line <em class="line">872</em>,
+      in <code class="function">full_dispatch_request</code></h4>
+  <div class="source "><pre class="line before"><span class="ws">            </span>request_started.send(self, _async_wrapper=self.ensure_sync)</pre>
+<pre class="line before"><span class="ws">            </span>rv = self.preprocess_request()</pre>
+<pre class="line before"><span class="ws">            </span>if rv is None:</pre>
+<pre class="line before"><span class="ws">                </span>rv = self.dispatch_request()</pre>
+<pre class="line before"><span class="ws">        </span>except Exception as e:</pre>
+<pre class="line current"><span class="ws">            </span>rv = self.handle_user_exception(e)
+<span class="ws">            </span>     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^</pre>
+<pre class="line after"><span class="ws">        </span>return self.finalize_request(rv)</pre>
+<pre class="line after"><span class="ws"></span> </pre>
+<pre class="line after"><span class="ws">    </span>def finalize_request(</pre>
+<pre class="line after"><span class="ws">        </span>self,</pre>
+<pre class="line after"><span class="ws">        </span>rv: ft.ResponseReturnValue | HTTPException,</pre></div>
+</div>
+
+<li><div class="frame" id="frame-2388512156848">
+  <h4>File <cite class="filename">"C:\SCP_WVA\WVA\flask_page\Lib\site-packages\flask\app.py"</cite>,
+      line <em class="line">870</em>,
+      in <code class="function">full_dispatch_request</code></h4>
+  <div class="source "><pre class="line before"><span class="ws"></span> </pre>
+<pre class="line before"><span class="ws">        </span>try:</pre>
+<pre class="line before"><span class="ws">            </span>request_started.send(self, _async_wrapper=self.ensure_sync)</pre>
+<pre class="line before"><span class="ws">            </span>rv = self.preprocess_request()</pre>
+<pre class="line before"><span class="ws">            </span>if rv is None:</pre>
+<pre class="line current"><span class="ws">                </span>rv = self.dispatch_request()
+<span class="ws">                </span>     ^^^^^^^^^^^^^^^^^^^^^^^</pre>
+<pre class="line after"><span class="ws">        </span>except Exception as e:</pre>
+<pre class="line after"><span class="ws">            </span>rv = self.handle_user_exception(e)</pre>
+<pre class="line after"><span class="ws">        </span>return self.finalize_request(rv)</pre>
+<pre class="line after"><span class="ws"></span> </pre>
+<pre class="line after"><span class="ws">    </span>def finalize_request(</pre></div>
+</div>
+
+<li><div class="frame" id="frame-2388512159872">
+  <h4>File <cite class="filename">"C:\SCP_WVA\WVA\flask_page\Lib\site-packages\flask\app.py"</cite>,
+      line <em class="line">855</em>,
+      in <code class="function">dispatch_request</code></h4>
+  <div class="source "><pre class="line before"><span class="ws">            </span>and req.method == &#34;OPTIONS&#34;</pre>
+<pre class="line before"><span class="ws">        </span>):</pre>
+<pre class="line before"><span class="ws">            </span>return self.make_default_options_response()</pre>
+<pre class="line before"><span class="ws">        </span># otherwise dispatch to the handler for that endpoint</pre>
+<pre class="line before"><span class="ws">        </span>view_args: dict[str, t.Any] = req.view_args  # type: ignore[assignment]</pre>
+<pre class="line current"><span class="ws">        </span>return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+<span class="ws">        </span>       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^</pre>
+<pre class="line after"><span class="ws"></span> </pre>
+<pre class="line after"><span class="ws">    </span>def full_dispatch_request(self) -&gt; Response:</pre>
+<pre class="line after"><span class="ws">        </span>&#34;&#34;&#34;Dispatches the request and on top of that performs request</pre>
+<pre class="line after"><span class="ws">        </span>pre and postprocessing as well as HTTP exception catching and</pre>
+<pre class="line after"><span class="ws">        </span>error handling.</pre></div>
+</div>
+
+<li><div class="frame" id="frame-2388512156272">
+  <h4>File <cite class="filename">"C:\SCP_WVA\WVA\flask_page\input_tag_analysis.py"</cite>,
+      line <em class="line">10</em>,
+      in <code class="function">input_tag</code></h4>
+  <div class="source "><pre class="line before"><span class="ws"></span>input_tag_bp = Blueprint(&#39;input_tag_bp&#39;, __name__, template_folder=&#39;templates&#39;)</pre>
+<pre class="line before"><span class="ws"></span> </pre>
+<pre class="line before"><span class="ws"></span>@input_tag_bp.route(&#39;/input_tag&#39;, methods=[&#39;GET&#39;, &#39;POST&#39;])</pre>
+<pre class="line before"><span class="ws"></span>def input_tag():</pre>
+<pre class="line before"><span class="ws">    </span>if request.method == &#39;POST&#39;:</pre>
+<pre class="line current"><span class="ws">        </span>user_provided_url = request.form[&#39;url&#39;]
+<span class="ws">        </span>                    ^^^^^^^^^^^^^^^^^^^</pre>
+<pre class="line after"><span class="ws">        </span>result_html = save_input_tags_to_html(user_provided_url, max_depth=3)</pre>
+<pre class="line after"><span class="ws">        </span>return render_template(&#39;input_tag_result.html&#39;, result_html=result_html)</pre>
+<pre class="line after"><span class="ws"></span> </pre>
+<pre class="line after"><span class="ws">    </span>return render_template(&#39;input_tag.html&#39;)</pre></div>
+</div>
+
+<li><div class="frame" id="frame-2388512160592">
+  <h4>File <cite class="filename">"C:\SCP_WVA\WVA\flask_page\Lib\site-packages\werkzeug\datastructures\structures.py"</cite>,
+      line <em class="line">192</em>,
+      in <code class="function">__getitem__</code></h4>
+  <div class="source "><pre class="line before"><span class="ws"></span> </pre>
+<pre class="line before"><span class="ws">        </span>if key in self:</pre>
+<pre class="line before"><span class="ws">            </span>lst = dict.__getitem__(self, key)</pre>
+<pre class="line before"><span class="ws">            </span>if len(lst) &gt; 0:</pre>
+<pre class="line before"><span class="ws">                </span>return lst[0]</pre>
+<pre class="line current"><span class="ws">        </span>raise exceptions.BadRequestKeyError(key)
+<span class="ws">        </span>^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^</pre>
+<pre class="line after"><span class="ws"></span> </pre>
+<pre class="line after"><span class="ws">    </span>def __setitem__(self, key, value):</pre>
+<pre class="line after"><span class="ws">        </span>&#34;&#34;&#34;Like :meth:`add` but removes an existing key first.</pre>
+<pre class="line after"><span class="ws"></span> </pre>
+<pre class="line after"><span class="ws">        </span>:param key: the key for the value.</pre></div>
+</div>
+</ul>
+  <blockquote>werkzeug.exceptions.BadRequestKeyError: 400 Bad Request: The browser (or proxy) sent a request that this server could not understand.
+KeyError: &#39;url&#39;
+</blockquote>
+</div>
+
+<div class="plain">
+    <p>
+      This is the Copy/Paste friendly version of the traceback.
+    </p>
+    <textarea cols="50" rows="10" name="code" readonly>Traceback (most recent call last):
+  File &#34;C:\SCP_WVA\WVA\flask_page\Lib\site-packages\flask\app.py&#34;, line 1488, in __call__
+    return self.wsgi_app(environ, start_response)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File &#34;C:\SCP_WVA\WVA\flask_page\Lib\site-packages\flask\app.py&#34;, line 1466, in wsgi_app
+    response = self.handle_exception(e)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File &#34;C:\SCP_WVA\WVA\flask_page\Lib\site-packages\flask\app.py&#34;, line 1463, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File &#34;C:\SCP_WVA\WVA\flask_page\Lib\site-packages\flask\app.py&#34;, line 872, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File &#34;C:\SCP_WVA\WVA\flask_page\Lib\site-packages\flask\app.py&#34;, line 870, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File &#34;C:\SCP_WVA\WVA\flask_page\Lib\site-packages\flask\app.py&#34;, line 855, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File &#34;C:\SCP_WVA\WVA\flask_page\input_tag_analysis.py&#34;, line 10, in input_tag
+    user_provided_url = request.form[&#39;url&#39;]
+                        ^^^^^^^^^^^^^^^^^^^
+  File &#34;C:\SCP_WVA\WVA\flask_page\Lib\site-packages\werkzeug\datastructures\structures.py&#34;, line 192, in __getitem__
+    raise exceptions.BadRequestKeyError(key)
+werkzeug.exceptions.BadRequestKeyError: 400 Bad Request: The browser (or proxy) sent a request that this server could not understand.
+KeyError: &#39;url&#39;
+</textarea>
+</div>
+<div class="explanation">
+  The debugger caught an exception in your WSGI application.  You can now
+  look at the traceback which led to the error.  <span class="nojavascript">
+  If you enable JavaScript you can also use additional features such as code
+  execution (if the evalex feature is enabled), automatic pasting of the
+  exceptions and much more.</span>
+</div>
+      <div class="footer">
+        Brought to you by <strong class="arthur">DON'T PANIC</strong>, your
+        friendly Werkzeug powered traceback interpreter.
+      </div>
+    </div>
+
+    <div class="pin-prompt">
+      <div class="inner">
+        <h3>Console Locked</h3>
+        <p>
+          The console is locked and needs to be unlocked by entering the PIN.
+          You can find the PIN printed out on the standard output of your
+          shell that runs the server.
+        <form>
+          <p>PIN:
+            <input type=text name=pin size=14>
+            <input type=submit name=btn value="Confirm Pin">
+        </form>
+      </div>
+    </div>
+  </body>
+</html>
+
+<!--
+
+Traceback (most recent call last):
+  File "C:\SCP_WVA\WVA\flask_page\Lib\site-packages\flask\app.py", line 1488, in __call__
+    return self.wsgi_app(environ, start_response)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\SCP_WVA\WVA\flask_page\Lib\site-packages\flask\app.py", line 1466, in wsgi_app
+    response = self.handle_exception(e)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\SCP_WVA\WVA\flask_page\Lib\site-packages\flask\app.py", line 1463, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\SCP_WVA\WVA\flask_page\Lib\site-packages\flask\app.py", line 872, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\SCP_WVA\WVA\flask_page\Lib\site-packages\flask\app.py", line 870, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\SCP_WVA\WVA\flask_page\Lib\site-packages\flask\app.py", line 855, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\SCP_WVA\WVA\flask_page\input_tag_analysis.py", line 10, in input_tag
+    user_provided_url = request.form['url']
+                        ^^^^^^^^^^^^^^^^^^^
+  File "C:\SCP_WVA\WVA\flask_page\Lib\site-packages\werkzeug\datastructures\structures.py", line 192, in __getitem__
+    raise exceptions.BadRequestKeyError(key)
+werkzeug.exceptions.BadRequestKeyError: 400 Bad Request: The browser (or proxy) sent a request that this server could not understand.
+KeyError: 'url'
+
+
+-->
+
+

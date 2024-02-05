@@ -8,7 +8,7 @@ input_tag_bp = Blueprint('input_tag_bp', __name__, template_folder='templates')
 def input_tag():
     if request.method == 'POST':
         user_provided_url = request.form['url']
-        result_html = save_input_tags_to_html(user_provided_url, max_depth=3)
-        return render_template('input_tag_result.html', result_html=result_html)
+        pages_info = save_input_tags_to_html(user_provided_url, max_depth=3)
+        return render_template('input_tag_result.html', pages_info=pages_info)
 
     return render_template('input_tag.html')
