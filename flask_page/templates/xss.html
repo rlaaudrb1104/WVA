@@ -48,7 +48,7 @@
             class="text-gray-500 hover:text-blue-600 font-bold"
             >Sql Injection</a
           >
-          <a href="/xss" class="text-blue-600 font-bold"
+          <a href="{{ url_for('XSS_Bypass_bp.XSS') }}" class="text-blue-600 font-bold"
             >XSS</a
           >
         </div>
@@ -61,7 +61,7 @@
       It Needs Payload and Parameter
     </p>
     <div class="flex justify-center w-screeen">
-      <form method="post" action="{{ url_for('input_tag_bp.input_tag') }}">
+      <form method="post" action="{{ url_for('XSS_Bypass_bp.XSS') }}">
         <label for="url" class="my-5 font-bold">Enter URL:</label>
         <div class="relative box-border mt-5 mb-2">
           <input
@@ -72,23 +72,33 @@
             required
           />
         </div>
-        <label for="url" class="my-5 font-bold">Enter Payload:</label>
+        <label for="cookies_name" class="my-5 font-bold">Enter cookies_name:</label>
         <div class="relative box-border mt-5 mb-2">
           <input
             class="font-bold border-b-4 border-blue-600 w-96 h-8 rounded-full outline-0 bg-gray-200 px-5"
             type="text"
-            id="url"
-            name="url"
+            id="cookies_name"
+            name="cookies_name"
             required
           />
         </div>
-        <label for="url" class="my-5 font-bold">Enter Parameter:</label>
+        <label for="cookies_value" class="my-5 font-bold">Enter cookies_value:</label>
         <div class="relative box-border mt-5 mb-2">
           <input
             class="font-bold border-b-4 border-blue-600 w-96 h-8 rounded-full outline-0 bg-gray-200 px-5"
             type="text"
-            id="url"
-            name="url"
+            id="cookies_value"
+            name="cookies_value"
+            required
+          />
+        </div>
+        <label for="params" class="my-5 font-bold">Enter Parameter:</label>
+        <div class="relative box-border mt-5 mb-2">
+          <input
+            class="font-bold border-b-4 border-blue-600 w-96 h-8 rounded-full outline-0 bg-gray-200 px-5"
+            type="text"
+            id="params"
+            name="params"
             required
           />
         </div>
