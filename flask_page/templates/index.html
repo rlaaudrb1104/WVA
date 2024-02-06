@@ -48,7 +48,7 @@
             class="text-gray-500 hover:text-blue-600 font-bold"
             >Sql Injection</a
           >
-          <a href="/xss" class="text-gray-500 hover:text-blue-600 font-bold"
+          <a href="{{ url_for('XSS_Bypass_bp.XSS') }}" class="text-gray-500 hover:text-blue-600 font-bold"
             >XSS</a
           >
         </div>
@@ -109,7 +109,7 @@
       >
         📝 Sql Injection
       </a>
-      <a
+      <a href="{{ url_for('XSS_Bypass_bp.XSS') }}" 
         class="my-2 bg-blue-700 hover:bg-blue-800 font-bold text-gray-100 px-4 py-2 rounded-xl hover:shadow hover:shadow-black grid place-items-center hover:border-double mx-5 w-48"
       >
         ❎ XSS

@@ -102,6 +102,7 @@
           {% if page_info['input_tags'] %} {% for input_tag in
           page_info['input_tags'] %}
           <p class="mb-4">🔷{{ input_tag }}</p>
+          <hr  />
           {% endfor %}</details> {% else %}
           <p class="mb-4">No Input Tags found.</p></details>
           {% endif %}
@@ -111,6 +112,7 @@
           {% if page_info['comments'] %} {% for comment in page_info['comments']
           %}
           <p class="mb-4">🔷{{ comment }}</p>
+          <hr  />
           {% endfor %}</details> {% else %}
           <p class="mb-4">No Comments found.</p></details>
           {% endif %}
@@ -126,6 +128,6 @@
       }
     </script>
   </body>
-    <img src="{{ url_for('static', filename='img/Arrow.png') }}", class="cursor-pointer fixed bottom-5 right-5 animate-bounce size-16" onclick="javascript:window.scrollTo(0,0);"></img>
+    <img src="{{ url_for('static', filename='img/Arrow.png') }}", class="cursor-pointer fixed bottom-5 right-4 animate-bounce size-16" onclick="javascript:window.scrollTo(0,0);"></img>
 
 </html>
