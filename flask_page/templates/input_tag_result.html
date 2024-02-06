@@ -30,45 +30,35 @@
     </style>
   </head>
   <body class="bg-gray-50 text-gray-900 font-sans">
-    <header class="bg-white shadow">
+    <header class="bg-white shadow shadow-lg relative">
       <nav
         class="container mx-auto px-6 py-3 flex justify-between items-center"
       >
-        <a href="/" class="text-3xl font-bold text-blue-600">WVA</a>
+        <a href="/" class="text-3xl font-bold text-lime-600">WVA</a>
         <div class="space-x-4">
           <a
             href="{{ url_for('input_tag_bp.input_tag') }}"
-            class="text-blue-600 font-bold"
-            >Input Tag Crawl</a
-          >
-          <a
-            href="{{ url_for('comments_bp.comments') }}"
-            class="text-gray-500 hover:text-blue-600 font-bold"
-            >Comments Crawl</a
-          >
-          <a
-            href="/method-check"
-            class="text-gray-500 hover:text-blue-600 font-bold"
-            >Method Check</a
+            class="text-gray-500 hover:text-lime-600 font-bold"
+            >Site-Info Crawl</a
           >
           <a
             href="/directory-listing"
-            class="text-gray-500 hover:text-blue-600 font-bold"
-            >Directory Listing</a
+            class="text-gray-500 hover:text-lime-600 font-bold"
+            >File Vulnerability</a
           >
           <a
             href="/sql-injection"
-            class="text-gray-500 hover:text-blue-600 font-bold"
+            class="text-gray-500 hover:text-lime-600 font-bold"
             >Sql Injection</a
           >
-          <a href="/xss" class="text-gray-500 hover:text-blue-600 font-bold"
+          <a href="{{ url_for('XSS_Bypass_bp.XSS') }}" class="text-gray-500 hover:text-lime-600 font-bold"
             >XSS</a
           >
         </div>
       </nav>
     </header>
-    <h1 class="font-bold text-blue-600 text-3xl flex justify-center m-5">
-      Input Tag Crawl Result
+    <h1 class="font-bold text-lime-600 text-3xl flex justify-center m-5">
+      Site-Info Crawl Result
     </h1>
     <p class="flex justify-center text-gray-500">
       Result of crawling the site with the dfs algorithm.
@@ -77,31 +67,32 @@
       <div class="flex flex-col mx-5 justify-center">
         <a
           href="/input_tag"
-          class="hover:bg-blue-800 my-2 bg-blue-600 font-bold text-gray-100 px-4 py-2 rounded-full hover:shadow hover:shadow-black justify-center text-center"
-          >Go back to Input Tag Crawl Page</a
+          class="hover:bg-lime-800 my-2 bg-lime-600 font-bold text-gray-100 px-4 py-2 rounded-full hover:shadow hover:shadow-black justify-center text-center"
+          >Go back to Site-Info Crawl Page</a
         >
         <a
           href="/"
-          class="hover:bg-blue-800 mt-2 mb-4 bg-blue-600 font-bold text-gray-100 px-4 py-2 rounded-full hover:shadow hover:shadow-black justify-center text-center"
+          class="hover:bg-lime-800 mt-2 mb-4 bg-lime-600 font-bold text-gray-100 px-4 py-2 rounded-full hover:shadow hover:shadow-black justify-center text-center"
           >Go back to Home Page</a
         >
       </div>
     </div>
     <hr  />
     <br  />
+
     {% for page_info in pages_info %}
     <div class="page-info mx-5">
-      <p class="hover:shadow hover:shadow-black bg-blue-600 hover:bg-blue-800 font-bold text-lg text-white rounded-md px-4 py-1 cursor-pointer" 
+      <p class="hover:shadow hover:shadow-black bg-lime-600 hover:bg-lime-800 font-bold text-lg text-white rounded-md px-4 py-2 mx-10 cursor-pointer" 
       onclick="toggleContent('content_{{ loop.index }}')">
       ▫️ {{ page_info['url'] }}
       </p>
-      <div id="content_{{ loop.index }}" class="hidden bg-blue-100 border-blue-300 border-2 p-2 rounded-md">
+      <div id="content_{{ loop.index }}" class="hidden bg-lime-50 border-lime-200 border-2 p-2 rounded-md mx-10">
         <a href="{{ page_info['url'] }}" target="_blank" rel="noopener noreferrer" class="my-2"><strong>🔗 URL:</strong> {{ page_info['url'] }}</a>
         <div>
           <details><summary class="my-2 font-bold cursor-pointer">✏️ Input Tags</summary>
           {% if page_info['input_tags'] %} {% for input_tag in
           page_info['input_tags'] %}
-          <p class="mb-4">🔷{{ input_tag }}</p>
+          <p class="my-2">🍀 {{ input_tag }}</p>
           <hr  />
           {% endfor %}</details> {% else %}
           <p class="mb-4">No Input Tags found.</p></details>
@@ -111,7 +102,7 @@
           <details><summary class="my-2 font-bold cursor-pointer">📒 Comments</summary>
           {% if page_info['comments'] %} {% for comment in page_info['comments']
           %}
-          <p class="mb-4">🔷{{ comment }}</p>
+          <p class="mb-4">🍀 {{ comment }}</p>
           <hr  />
           {% endfor %}</details> {% else %}
           <p class="mb-4">No Comments found.</p></details>
@@ -128,6 +119,6 @@
       }
     </script>
   </body>
-    <img src="{{ url_for('static', filename='img/Arrow.png') }}", class="cursor-pointer fixed bottom-5 right-4 animate-bounce size-16" onclick="javascript:window.scrollTo(0,0);"></img>
+    <img src="{{ url_for('static', filename='img/Arrow.png') }}", class="shadow shadow-black rounded-lg cursor-pointer fixed bottom-5 right-4 animate-bounce size-16" onclick="javascript:window.scrollTo(0,0);"></img>
 
 </html>

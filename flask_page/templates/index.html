@@ -1,124 +1,83 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>WVA Tools</title>
-    <link
-      href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap"
-      rel="stylesheet"
-    />
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-      .grid-cell {
-        width: 100px;
-        height: 100px;
-      }
-    </style>
-  </head>
-  <body class="bg-gray-50 text-gray-900 font-sans overflow-x-hidden">
-    <header class="bg-white shadow">
-      <nav
-        class="container mx-auto px-6 py-3 flex justify-between items-center"
-      >
-        <a href="/" class="text-3xl font-bold text-blue-600">WVA</a>
-        <div class="space-x-4">
-          <a
-            href="{{ url_for('input_tag_bp.input_tag') }}"
-            class="text-gray-500 hover:text-blue-600 font-bold"
-            >Input Tag Crawl</a
-          >
-          <a
-            href="{{ url_for('comments_bp.comments') }}"
-            class="text-gray-500 hover:text-blue-600 font-bold"
-            >Comments Crawl</a
-          >
-          <a
-            href="/method-check"
-            class="text-gray-500 hover:text-blue-600 font-bold"
-            >Method Check</a
-          >
-          <a
-            href="/directory-listing"
-            class="text-gray-500 hover:text-blue-600 font-bold"
-            >Directory Listing</a
-          >
-          <a
-            href="/sql-injection"
-            class="text-gray-500 hover:text-blue-600 font-bold"
-            >Sql Injection</a
-          >
-          <a href="{{ url_for('XSS_Bypass_bp.XSS') }}" class="text-gray-500 hover:text-blue-600 font-bold"
-            >XSS</a
-          >
-        </div>
-      </nav>
-    </header>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Web Vulnerabilities Analysis</title>
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  .bg-filter {
+    background-color: rgba(0, 0, 0, 0.6);
+  }
+</style>
+</head>
+<body class="font-sans bg-white text-gray-800 overflow-y-hidden">
+  <header class="bg-white shadow shadow-lg relative">
+    <nav
+      class="container mx-auto px-6 py-3 flex justify-between items-center"
+    >
+      <a href="/" class="text-3xl font-bold text-lime-600">WVA</a>
+      <div class="space-x-4">
+        <a
+          href="{{ url_for('input_tag_bp.input_tag') }}"
+          class="text-gray-500 hover:text-lime-600 font-bold"
+          >Site-Info Crawl</a
+        >
+        <a
+          href="/directory-listing"
+          class="text-gray-500 hover:text-lime-600 font-bold"
+          >File Vulnerability</a
+        >
+        <a
+          href="/sql-injection"
+          class="text-gray-500 hover:text-lime-600 font-bold"
+          >Sql Injection</a
+        >
+        <a href="{{ url_for('XSS_Bypass_bp.XSS') }}" class="text-gray-500 hover:text-lime-600 font-bold"
+          >XSS</a
+        >
+      </div>
+    </nav>
+  </header>
+<!-- Background image with overlay -->
+<div class="relative min-h-screen max-h-80 bg-no-repeat bg-cover" style="background-image: url('https://source.unsplash.com/featured/?programming');">
+  <div class="absolute inset-0 bg-filter flex flex-col items-center justify-center">
 
-    <main class="container mx-auto px-6 py-12">
-      <section class="text-center mb-12">
-        <h1 class="text-5xl font-bold text-blue-600 mb-4">
-          Web Vulnerabilities Analysis
-        </h1>
-        <p class="text-gray-500">
-          This is a website for web vulnerability analysis
-        </p>
-      </section>
+    <!-- Main content -->
+    <div class="px-4 sm:px-6 lg:px-8">
+      <div class="text-center">
+        <h1 class="text-5xl font-bold text-white mt-10 mb-4">Web Vulnerabilities Analysis</h1>
+        <p class="text-lg text-white mb-10">This is a website for web vulnerability analysis</p>
+      </div>
 
-      <section class="flex justify-center items-center">
-        <div class="grid grid-cols-18 gap-4">
-          <!-- Placeholder for security image -->
-          <div
-            class="col-span-6 row-span-4 bg-gray-300 flex items-center justify-center blur-edge"
-          >
-            <img
-              src="https://source.unsplash.com/600x400/?programing"
-              alt="Web Security img"
-              class="max-w-full h-auto"
-            />
-          </div>
-        </div>
-      </section>
-    </main>
-    <a class="flex justify-center text-2xl font-bold mb-4">---🔧Tools🔧---</a>
-    <div class="flex flex-row mx-5 justify-center text-center">
+      <!-- Feature links -->
+      <div class="flex flex-row mx-5 justify-center text-center">
       <a
-        class="my-2 bg-blue-700 hover:bg-blue-800 font-bold text-gray-100 px-4 py-2 rounded-xl hover:shadow hover:shadow-black grid place-items-center hover:border-double mx-5 w-48"
+        class="my-2 bg-lime-700 hover:bg-lime-800 font-bold text-gray-100 px-4 py-2 rounded-xl hover:shadow hover:shadow-black grid place-items-center hover:border-double mx-5 w-48"
         href="{{ url_for('input_tag_bp.input_tag') }}"
       >
-      ✏️ Input Tag Crawl
+      ✏️ Site-Info Crawl
       </a>
       <a
-        class="my-2 bg-blue-700 hover:bg-blue-800 font-bold text-gray-100 px-4 py-2 rounded-xl hover:shadow hover:shadow-black grid place-items-center hover:border-double mx-5 w-48"
-        href="{{ url_for('comments_bp.comments') }}"
+        class="my-2 bg-lime-700 hover:bg-lime-800 font-bold text-gray-100 px-4 py-2 rounded-xl hover:shadow hover:shadow-black grid place-items-center hover:border-double mx-5 w-48"
       >
-      📒 Comments Crawl
+        🗂️ File Vulnerability
       </a>
       <a
-        class="my-2 bg-blue-700 hover:bg-blue-800 font-bold text-gray-100 px-4 py-2 rounded-xl hover:shadow hover:shadow-black grid place-items-center hover:border-double mx-5 w-48"
-      >
-        💬 Method Check
-      </a>
-      <a
-        class="my-2 bg-blue-700 hover:bg-blue-800 font-bold text-gray-100 px-4 py-2 rounded-xl hover:shadow hover:shadow-black grid place-items-center hover:border-double mx-5 w-48"
-      >
-        🗂️ Directory Listing
-      </a>
-      <a
-        class="my-2 bg-blue-700 hover:bg-blue-800 font-bold text-gray-100 px-4 py-2 rounded-xl hover:shadow hover:shadow-black grid place-items-center hover:border-double mx-5 w-48"
+        class="my-2 bg-lime-700 hover:bg-lime-800 font-bold text-gray-100 px-4 py-2 rounded-xl hover:shadow hover:shadow-black grid place-items-center hover:border-double mx-5 w-48"
       >
         📝 Sql Injection
       </a>
       <a href="{{ url_for('XSS_Bypass_bp.XSS') }}" 
-        class="my-2 bg-blue-700 hover:bg-blue-800 font-bold text-gray-100 px-4 py-2 rounded-xl hover:shadow hover:shadow-black grid place-items-center hover:border-double mx-5 w-48"
+        class="my-2 bg-lime-700 hover:bg-lime-800 font-bold text-gray-100 px-4 py-2 rounded-xl hover:shadow hover:shadow-black grid place-items-center hover:border-double mx-5 w-48"
       >
         ❎ XSS
       </a>
     </div>
-    
-  </body>
-  <footer class="bg-white shadow mt-12 relative bottom-0 w-full border-y-1 border-gray-30 flex justify-between">
-    <img src="{{ url_for('static', filename='img/2024WVA.png') }}", width="200px"></img>
-    <a href="javascript:window.scrollTo(0,0);" class="grid place-items-center mx-5 font-bold text-lg hover:text-blue-600"></a>
-  </footer>
+
+  </div>
+</div>
+
+</body>
 </html>
