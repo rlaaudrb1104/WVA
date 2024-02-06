@@ -14,9 +14,18 @@
         width: 100px;
         height: 100px;
       }
+
       h2{
         font-size: 1.125rem;
         line-height: 1.75rem;
+      }
+
+      .page-info {
+        margin-bottom: 20px;
+      }
+
+      .hidden {
+        display: none;
       }
     </style>
   </head>
@@ -68,21 +77,57 @@
       <div class="flex flex-col mx-5 justify-center">
         <a
           href="/input_tag"
-          class="my-2 bg-blue-600 font-bold text-gray-100 px-4 py-2 rounded-full hover:shadow hover:shadow-black justify-center text-center"
+          class="hover:bg-blue-800 my-2 bg-blue-600 font-bold text-gray-100 px-4 py-2 rounded-full hover:shadow hover:shadow-black justify-center text-center"
           >Go back to Input Tag Crawl Page</a
         >
         <a
           href="/"
-          class="mt-2 mb-4 bg-blue-600 font-bold text-gray-100 px-4 py-2 rounded-full hover:shadow hover:shadow-black justify-center text-center"
+          class="hover:bg-blue-800 mt-2 mb-4 bg-blue-600 font-bold text-gray-100 px-4 py-2 rounded-full hover:shadow hover:shadow-black justify-center text-center"
           >Go back to Home Page</a
         >
       </div>
     </div>
     <hr  />
-    {{ result_html|safe }}
-    <footer class="bg-white shadow mt-12 fixed bottom-0 w-full border-y-1 border-gray-300 flex justify-between">
-      <img src="{{ url_for('static', filename='img/2024WVA.png') }}", width="200px"></img>
-      <a href="javascript:window.scrollTo(0,0);" class="grid place-items-center mx-5 font-bold text-lg hover:text-blue-600">🔼TOP</a>
-    </footer>
+    <br  />
+    {% for page_info in pages_info %}
+    <div class="page-info mx-5">
+      <p class="hover:shadow hover:shadow-black bg-blue-600 hover:bg-blue-800 font-bold text-lg text-white rounded-md px-4 py-1 cursor-pointer" 
+      onclick="toggleContent('content_{{ loop.index }}')">
+      ▫️ {{ page_info['url'] }}
+      </p>
+      <div id="content_{{ loop.index }}" class="hidden bg-blue-100 border-blue-300 border-2 p-2 rounded-md">
+        <a href="{{ page_info['url'] }}" target="_blank" rel="noopener noreferrer" class="my-2"><strong>🔗 URL:</strong> {{ page_info['url'] }}</a>
+        <div>
+          <details><summary class="my-2 font-bold cursor-pointer">✏️ Input Tags</summary>
+          {% if page_info['input_tags'] %} {% for input_tag in
+          page_info['input_tags'] %}
+          <p class="mb-4">🔷{{ input_tag }}</p>
+          <hr  />
+          {% endfor %}</details> {% else %}
+          <p class="mb-4">No Input Tags found.</p></details>
+          {% endif %}
+        </div>
+        <div>
+          <details><summary class="my-2 font-bold cursor-pointer">📒 Comments</summary>
+          {% if page_info['comments'] %} {% for comment in page_info['comments']
+          %}
+          <p class="mb-4">🔷{{ comment }}</p>
+          <hr  />
+          {% endfor %}</details> {% else %}
+          <p class="mb-4">No Comments found.</p></details>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+
+    <script>
+      function toggleContent(id) {
+        var content = document.getElementById(id)
+        content.classList.toggle("hidden")
+      }
+    </script>
   </body>
+    <img src="{{ url_for('static', filename='img/Arrow.png') }}", class="cursor-pointer fixed bottom-5 right-4 animate-bounce size-16" onclick="javascript:window.scrollTo(0,0);"></img>
+
 </html>
