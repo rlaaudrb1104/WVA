@@ -24,12 +24,12 @@
         <a href="/" class="text-3xl font-bold text-blue-600">WVA</a>
         <div class="space-x-4">
           <a
-            href="{{ url_for('input_tag_bp.input_tag') }}"
+            href=""
             class="text-gray-500 hover:text-blue-600 font-bold"
             >Input Tag Crawl</a
           >
           <a
-            href="{{ url_for('comments_bp.comments') }}"
+            href=""
             class="text-gray-500 hover:text-blue-600 font-bold"
             >Comments Crawl</a
           >
@@ -69,29 +69,49 @@
             type="text"
             id="url"
             name="url"
-            required
+            
           />
         </div>
-        <label for="cookies_name" class="my-5 font-bold">Enter cookies_name:</label>
+        <!-- <label for="cookies_name1" class="my-5 font-bold">Enter cookies_name:</label>
         <div class="relative box-border mt-5 mb-2">
           <input
             class="font-bold border-b-4 border-blue-600 w-96 h-8 rounded-full outline-0 bg-gray-200 px-5"
             type="text"
-            id="cookies_name"
-            name="cookies_name"
-            required
+            id="cookies_name1"
+            name="cookies_name1"
+            
           />
         </div>
-        <label for="cookies_value" class="my-5 font-bold">Enter cookies_value:</label>
+        <label for="cookies_value1" class="my-5 font-bold">Enter cookies_value:</label>
         <div class="relative box-border mt-5 mb-2">
           <input
             class="font-bold border-b-4 border-blue-600 w-96 h-8 rounded-full outline-0 bg-gray-200 px-5"
             type="text"
-            id="cookies_value"
-            name="cookies_value"
-            required
+            id="cookies_value1"
+            name="cookies_value1"
+            
           />
         </div>
+        <label for="cookies_name2" class="my-5 font-bold">Enter cookies_name:</label>
+        <div class="relative box-border mt-5 mb-2">
+          <input
+            class="font-bold border-b-4 border-blue-600 w-96 h-8 rounded-full outline-0 bg-gray-200 px-5"
+            type="text"
+            id="cookies_name2"
+            name="cookies_name2"
+            
+          />
+        </div>
+        <label for="cookies_value2" class="my-5 font-bold">Enter cookies_value:</label>
+        <div class="relative box-border mt-5 mb-2">
+          <input
+            class="font-bold border-b-4 border-blue-600 w-96 h-8 rounded-full outline-0 bg-gray-200 px-5"
+            type="text"
+            id="cookies_value2"
+            name="cookies_value2"
+            
+          />
+        </div> -->
         <label for="params" class="my-5 font-bold">Enter Parameter:</label>
         <div class="relative box-border mt-5 mb-2">
           <input
@@ -117,9 +137,6 @@
         </p>
       </form>
     </div>
-    <footer class="bg-white shadow mt-12 fixed bottom-0 w-full border-y-1 border-gray-300 flex justify-between">
-      <img src="{{ url_for('static', filename='img/2024WVA.png') }}", width="200px"></img>
-      <a href="javascript:window.scrollTo(0,0);" class="grid place-items-center mx-5 font-bold text-lg hover:text-blue-600">🔼TOP</a>
-    </footer>
+    
   </body>
 </html>
