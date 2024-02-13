@@ -4,10 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>WVA Tools</title>
-    <link
-      href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap"
-      rel="stylesheet"
-    />
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
       .grid-cell {
@@ -22,6 +19,15 @@
       .hidden {
         display: none;
       }
+      .scroll-to-top {
+        display: none;
+        opacity: 0;
+        transition: opacity 0.3s ease-in-out;
+      }
+      .scroll-to-top.show {
+        display: block;
+        opacity: 1;
+        }
     </style>
   </head>
   <body class="bg-gray-50 text-gray-900 font-sans">
@@ -191,7 +197,18 @@
         content.classList.toggle("hidden")
       }
     </script>
-  </body>
-    <img src="{{ url_for('static', filename='img/Arrow.png') }}", class="shadow shadow-black rounded-lg cursor-pointer fixed bottom-5 right-4 animate-bounce size-16" onclick="javascript:window.scrollTo(0,0);"></img>
+    <img src="{{ url_for('static', filename='img/Arrow.png') }}" class="rounded-full cursor-pointer fixed bottom-5 right-4 animate-bounce size-16 scroll-to-top" onclick="javascript:window.scrollTo(0,0);">
+    <script>
+        window.onscroll = function() {scrollFunction()};
 
+        function scrollFunction() {
+            if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                document.querySelector('.scroll-to-top').classList.add('show');
+            } else {
+                document.querySelector('.scroll-to-top').classList.remove('show');
+            }
+        }
+    </script>
+  </body>
+    
 </html>
