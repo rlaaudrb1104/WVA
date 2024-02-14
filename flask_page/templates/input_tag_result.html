@@ -88,9 +88,10 @@
     <!--page info toggles-->
     {% for page_info in pages_info %}
     <div class="page-info">
-      <details class="border-2 border-lime-300 bg-lime-100 rounded-md mx-10"><summary class="font-bold text-lg rounded-md py-2 mx-10 cursor-pointer" 
+      <details class="border-2 border-lime-300 bg-lime-100 rounded-md mx-10">
+        <summary class="font-bold text-lg rounded-md py-2 mx-10 cursor-pointer" 
         onclick="toggleContent('content_{{ loop.index }}')">
-        ▫️ {{ page_info['url'] }}
+          ▫️ {{ page_info['url'] }}
         </summary>
         <div id="content_{{ loop.index }}" class="hidden bg-lime-100 border-lime-200 p-2 rounded-md mx-10">
           
@@ -105,7 +106,9 @@
                 <p class="mb-2 mx-5">{% for header, value in page_info['security_headers'].items() %}
                   <p class="mx-5 mb-1">
                     <div class="border-2 border-lime-500 max-w-fit font-bold bg-lime-200 rounded-md pr-1">
-                      🍀 {{ header }}: {{ value }}
+                      <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/{{ header }}" target="_blank" rel="noopener noreferrer">
+                        🍀 {{ header }}: {{ value }}
+                      </a>
                     </div>
                   </p>
                   {% endfor %}

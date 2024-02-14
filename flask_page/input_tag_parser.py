@@ -2,7 +2,7 @@ import requests
 from bs4 import BeautifulSoup, Comment
 from urllib.parse import urljoin, urlparse
 
-def save_input_tags_to_html(url, max_depth=3):
+def save_input_tags_to_html(url, max_depth=2):
     print("now parsing...")
     visited_urls = set()
     content = []
@@ -99,13 +99,13 @@ def get_security_headers(url):
         response = requests.get(url)
         response.raise_for_status()
         security_headers = {
-            "Content-Security-Policy": response.headers.get("Content-Security-Policy", "✖️"),
-            "X-Content-Type-Options": response.headers.get("X-Content-Type-Options", "✖️"),
-            "X-Frame-Options": response.headers.get("X-Frame-Options", "✖️"),
-            "X-XSS-Protection": response.headers.get("X-XSS-Protection", "✖️"),
-            "Strict-Transport-Security": response.headers.get("Strict-Transport-Security", "✖️"),
-            "Referrer-Policy": response.headers.get("Referrer-Policy", "✖️"),
-            "Permissions-Policy": response.headers.get("Permissions-Policy", "✖️"),
+            "Content-Security-Policy": response.headers.get("Content-Security-Policy", "❌"),
+            "X-Content-Type-Options": response.headers.get("X-Content-Type-Options", "❌"),
+            "X-Frame-Options": response.headers.get("X-Frame-Options", "❌"),
+            "X-XSS-Protection": response.headers.get("X-XSS-Protection", "❌"),
+            "Strict-Transport-Security": response.headers.get("Strict-Transport-Security", "❌"),
+            "Referrer-Policy": response.headers.get("Referrer-Policy", "❌"),
+            "Permissions-Policy": response.headers.get("Permissions-Policy", "❌"),
         }
         return security_headers
     except requests.exceptions.RequestException as e:
