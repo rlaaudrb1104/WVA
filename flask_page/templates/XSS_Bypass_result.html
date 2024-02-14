@@ -28,7 +28,7 @@
         <a href="/" class="text-3xl font-bold text-lime-600">WVA</a>
         <div class="space-x-4">
           <a
-            href="{{ url_for('input_tag_bp.input_tag') }}"
+            href=""
             class="text-gray-500 hover:text-lime-600 font-bold"
             >Site-Info Crawl</a
           >
@@ -69,7 +69,7 @@
       </div>
     </div>
     <hr  />
-    {{ result_html|safe }}
+    <pre>{{ Bypass_result | safe }}</pre>
     <footer class="bg-white shadow mt-12 fixed bottom-0 w-full border-y-1 border-gray-300 flex justify-between">
       <img src="{{ url_for('static', filename='img/2024WVA.png') }}", width="200px"></img>
       <a href="javascript:window.scrollTo(0,0);" class="grid place-items-center mx-5 font-bold text-lg hover:text-lime-600">🔼TOP</a>

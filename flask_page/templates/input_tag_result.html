@@ -4,20 +4,12 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>WVA Tools</title>
-    <link
-      href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap"
-      rel="stylesheet"
-    />
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
       .grid-cell {
         width: 100px;
         height: 100px;
-      }
-
-      h2{
-        font-size: 1.125rem;
-        line-height: 1.75rem;
       }
 
       .page-info {
@@ -27,9 +19,20 @@
       .hidden {
         display: none;
       }
+      .scroll-to-top {
+        display: none;
+        opacity: 0;
+        transition: opacity 0.3s ease-in-out;
+      }
+      .scroll-to-top.show {
+        display: block;
+        opacity: 1;
+        }
     </style>
   </head>
   <body class="bg-gray-50 text-gray-900 font-sans">
+
+    <!--Top navigation bar-->
     <header class="bg-white shadow shadow-lg relative">
       <nav
         class="container mx-auto px-6 py-3 flex justify-between items-center"
@@ -57,6 +60,8 @@
         </div>
       </nav>
     </header>
+    
+    <!--Body contents-->
     <h1 class="font-bold text-lime-600 text-3xl flex justify-center m-5">
       Site-Info Crawl Result
     </h1>
@@ -80,45 +85,133 @@
     <hr  />
     <br  />
 
+    <!--page info toggles-->
     {% for page_info in pages_info %}
-    <div class="page-info mx-5">
-      <p class="hover:shadow hover:shadow-black bg-lime-600 hover:bg-lime-800 font-bold text-lg text-white rounded-md px-4 py-2 mx-10 cursor-pointer" 
-      onclick="toggleContent('content_{{ loop.index }}')">
-      ▫️ {{ page_info['url'] }}
-      </p>
-      <div id="content_{{ loop.index }}" class="hidden bg-lime-50 border-lime-200 border-2 p-2 rounded-md mx-10">
-        <a href="{{ page_info['url'] }}" target="_blank" rel="noopener noreferrer" class="my-2"><strong>🔗 URL:</strong> {{ page_info['url'] }}</a>
-        <div>
-          <details><summary class="my-2 font-bold cursor-pointer">✏️ Input Tags</summary>
-          {% if page_info['input_tags'] %} {% for input_tag in
-          page_info['input_tags'] %}
-          <p class="my-2">🍀 {{ input_tag }}</p>
-          <hr  />
-          {% endfor %}</details> {% else %}
-          <p class="mb-4">No Input Tags found.</p></details>
+    <div class="page-info">
+      <details class="border-2 border-lime-300 bg-lime-100 rounded-md mx-10">
+        <summary class="font-bold text-lg rounded-md py-2 mx-10 cursor-pointer" 
+        onclick="toggleContent('content_{{ loop.index }}')">
+          ▫️ {{ page_info['url'] }}
+        </summary>
+        <div id="content_{{ loop.index }}" class="hidden bg-lime-100 border-lime-200 p-2 rounded-md mx-10">
+          
+          <!--Hyperlink-->
+          <a href="{{ page_info['url'] }}" target="_blank" rel="noopener noreferrer" class="mx-2 pl-1 pr-2 my-2 border-4 rounded-md border-lime-300 bg-lime-300 "><strong>🔗 Go to </strong> {{ page_info['url'] }}</a>
+          
+          <!--CSP & Security header-->
+          <div class="mx-5">
+            <details>
+              <summary class="my-2 font-bold cursor-pointer">🔏 Security header</summary>
+              {% if page_info['security_headers'] %}
+                <p class="mb-2 mx-5">{% for header, value in page_info['security_headers'].items() %}
+                  <p class="mx-5 mb-1">
+                    <div class="border-2 border-lime-500 max-w-fit font-bold bg-lime-200 rounded-md pr-1">
+                      <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/{{ header }}" target="_blank" rel="noopener noreferrer">
+                        🍀 {{ header }}: {{ value }}
+                      </a>
+                    </div>
+                  </p>
+                  {% endfor %}
+                </p>
+            </details> {% else %}
+              <p class="mb-4 mx-5">Security header is missing or not found.</p>
+            </details>
+              {% endif %}
+          </div>
+
+          <!--Input tag-->
+          <div class="mx-5">
+            <details><summary class="my-2 font-bold cursor-pointer">✏️ Input Tags</summary>
+            {% if page_info['input_tags'] %} {% for input_tag in
+            page_info['input_tags'] %}
+            <p class="my-2 mx-5">🍀 {{ input_tag }}</p>
+            {% endfor %}</details> {% else %}
+            <p class="mb-4 mx-5">No Input Tags found.</p></details>
+            {% endif %}
+          </div>
+  
+          <!--Comments-->
+          <div class="mx-5">
+            <details><summary class="my-2 font-bold cursor-pointer">📒 Comments</summary>
+            {% if page_info['comments'] %} {% for comment in page_info['comments']
+            %}
+            <p class="mb-4 mx-5">🍀 {{ comment }}</p>
+            {% endfor %}</details> {% else %}
+            <p class="mb-4 mx-5">No Comments found.</p></details>
+            {% endif %}
+          </div>
+  
+          <!--Form method-->
+          <div class="mx-5">
+            <details><summary class="my-2 font-bold cursor-pointer">💬 Form Method</summary>
+            {% if page_info['forms'] %} {% for form_info in page_info['forms']
+            %}
+            <div class="mb-5">
+              <p class="font-bold mb-2">▪️ Form Action: {{ form_info['action'] }}</p>
+              <p class="font-bold mb-2">▪️ Method: {{ form_info['method'] }}</p>
+  
+              <div class="flex flex-col mx-5">
+  
+                <!--GET request toggle-->
+                <div>
+                  <details class="mb-5 mx-5">
+                    <summary class="text-md mb-2 font-bold">GET Request</summary>
+                      <p class="font-bold mb-2">▪️ Status Code: [ {{ form_info['response']['GET']['status_code'] }} ]</p>
+                      <div class="font-bold">▪️ Response Content: </div>
+                      <div class="border-y-4 border-lime-500 rounded-lg m-5">
+                        <p class="overflow-auto max-w-fit max-h-48 p-2 m-1">
+                          {{ form_info['response']['GET']['content'] }}
+                        </p>
+                      </div>
+                  </details>
+                </div>
+                
+                <!--POST request toggle-->
+                <div>
+                  <details class="mx-5 mb-5">
+                    <summary class="text-md mb-2 font-bold">POST Request</summary>
+                      <p class="font-bold mb-2">▪️ Status Code: [ {{ form_info['response']['POST']['status_code'] }} ]</p>
+                      <div class="font-bold">▪️ Response Content: </div>
+                      <div class="border-y-4 border-lime-500 rounded-lg m-5">
+                        <p class="overflow-auto max-w-fit max-h-48 p-2 m-1">
+                          {{ form_info['response']['POST']['content'] }}
+                        </p>
+                      </div>
+                  </details>
+                </div>
+                <hr class="border-2 border-lime-500 border-dashed"/>
+              </div>
+            </div>
+            {% endfor %}
+          {% else %}
+            <p>No forms found.</p>
           {% endif %}
+  
         </div>
-        <div>
-          <details><summary class="my-2 font-bold cursor-pointer">📒 Comments</summary>
-          {% if page_info['comments'] %} {% for comment in page_info['comments']
-          %}
-          <p class="mb-4">🍀 {{ comment }}</p>
-          <hr  />
-          {% endfor %}</details> {% else %}
-          <p class="mb-4">No Comments found.</p></details>
-          {% endif %}
-        </div>
-      </div>
+      </details>
+      
     </div>
     {% endfor %}
 
+    <!--Toggle script-->
     <script>
       function toggleContent(id) {
         var content = document.getElementById(id)
         content.classList.toggle("hidden")
       }
     </script>
-  </body>
-    <img src="{{ url_for('static', filename='img/Arrow.png') }}", class="shadow shadow-black rounded-lg cursor-pointer fixed bottom-5 right-4 animate-bounce size-16" onclick="javascript:window.scrollTo(0,0);"></img>
+    <img src="{{ url_for('static', filename='img/Arrow.png') }}" class="rounded-full cursor-pointer fixed bottom-5 right-4 animate-bounce size-16 scroll-to-top" onclick="javascript:window.scrollTo(0,0);">
+    <script>
+        window.onscroll = function() {scrollFunction()};
 
+        function scrollFunction() {
+            if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                document.querySelector('.scroll-to-top').classList.add('show');
+            } else {
+                document.querySelector('.scroll-to-top').classList.remove('show');
+            }
+        }
+    </script>
+  </body>
+    
 </html>

@@ -14,6 +14,8 @@
         width: 100px;
         height: 100px;
       }
+      .cookie-inputs { display: none; }
+      .cookie-inputs.active { display: flex; flex-direction: column; gap: 0.5rem; }
     </style>
   </head>
   <body class="bg-gray-50 text-gray-900 font-sans">
@@ -51,7 +53,8 @@
       It Needs Payload and Parameter
     </p>
     <div class="flex justify-center w-screeen">
-      <form method="post" action="{{ url_for('XSS_Bypass_bp.XSS') }}">
+      <form id="xssForm" method="post" action="{{ url_for('XSS_Bypass_bp.XSS') }}">
+        
         <label for="url" class="my-5 font-bold">Enter URL:</label>
         <div class="relative box-border mt-5 mb-2">
           <input
@@ -62,26 +65,7 @@
             required
           />
         </div>
-        <label for="cookies_name" class="my-5 font-bold">Enter cookies_name:</label>
-        <div class="relative box-border mt-5 mb-2">
-          <input
-            class="font-bold border-b-4 border-lime-600 w-96 h-8 rounded-full outline-0 bg-gray-200 px-5"
-            type="text"
-            id="cookies_name"
-            name="cookies_name"
-            required
-          />
-        </div>
-        <label for="cookies_value" class="my-5 font-bold">Enter cookies_value:</label>
-        <div class="relative box-border mt-5 mb-2">
-          <input
-            class="font-bold border-b-4 border-lime-600 w-96 h-8 rounded-full outline-0 bg-gray-200 px-5"
-            type="text"
-            id="cookies_value"
-            name="cookies_value"
-            required
-          />
-        </div>
+
         <label for="params" class="my-5 font-bold">Enter Parameter:</label>
         <div class="relative box-border mt-5 mb-2">
           <input
@@ -92,6 +76,58 @@
             required
           />
         </div>
+
+        <fieldset>
+          <div class="flex justify-between">
+            <legend class="font-bold mb-2">Number of Cookie:</legend>
+            <div class="flex items-center gap-2 mb-2">
+            <label>
+              <input class="md:accent-lime-500" type="radio" name="cookieCount" value="0" checked> 0
+            </label>
+            <label>
+              <input class="md:accent-lime-500" type="radio" name="cookieCount" value="1"> 1
+            </label>
+            <label>
+              <input class="md:accent-lime-500" type="radio" name="cookieCount" value="2"> 2
+            </label>
+          </div>
+          </div>
+          <div id="cookieInputsContainer" class="mt-2 mb-5 flex flex-col">
+            <div class="cookie-inputs" id="cookieInputs1">
+              <input
+                class="font-bold border-b-4 border-lime-600 w-full md:w-96 h-8 rounded-full outline-none bg-gray-200 px-5 mb-2"
+                type="text"
+                placeholder="Cookie Name"
+                name="cookie_name1"
+                id="cookie_name1"
+              />
+              <input
+                class="font-bold border-b-4 border-lime-600 w-full md:w-96 h-8 rounded-full outline-none bg-gray-200 px-5"
+                type="text"
+                placeholder="Cookie Value"
+                name="cookie_value1"
+                id="cookie_value1"
+              />
+            </div>
+            <div class="cookie-inputs mt-5" id="cookieInputs2">
+              <input
+                class="font-bold border-b-4 border-lime-600 w-full md:w-96 h-8 rounded-full outline-none bg-gray-200 px-5 mb-2"
+                type="text"
+                placeholder="Cookie Name"
+                name="cookie_name2"
+                id="cookie_name2"
+              />
+              <input
+                class="font-bold border-b-4 border-lime-600 w-full md:w-96 h-8 rounded-full outline-none bg-gray-200 px-5"
+                type="text"
+                placeholder="Cookie Value"
+                name="cookie_value2"
+                id="cookie_value2"
+              />
+            </div>
+          </div>
+        </fieldset>
+        
         <button
           type="submit"
           class="mb-4 bg-lime-600 font-bold text-gray-100 px-4 py-2 rounded-full hover:shadow hover:shadow-black"
@@ -110,5 +146,35 @@
     <footer class="mt-12 fixed bottom-0 w-full flex justify-between">
       <img src="{{ url_for('static', filename='img/2024WVA.png') }}", width="200px"></img>
     </footer>
+
+    <!--cookie script-->
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        const form = document.getElementById('xssForm');
+        const cookieCountRadios = form.querySelectorAll('input[name="cookieCount"]');
+        const cookieInputsContainer = document.getElementById('cookieInputsContainer');
+        const cookieInputs1 = document.getElementById('cookieInputs1');
+        const cookieInputs2 = document.getElementById('cookieInputs2');
+    
+        cookieCountRadios.forEach(radio => {
+          radio.addEventListener('change', function () {
+            switch (this.value) {
+              case '0':
+                cookieInputs1.classList.remove('active');
+                cookieInputs2.classList.remove('active');
+                break;
+              case '1':
+                cookieInputs1.classList.add('active');
+                cookieInputs2.classList.remove('active');
+                break;
+              case '2':
+                cookieInputs1.classList.add('active');
+                cookieInputs2.classList.add('active');
+                break;
+            }
+          });
+        });
+      });
+    </script>
   </body>
 </html>

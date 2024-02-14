@@ -2,11 +2,12 @@ import requests
 from bs4 import BeautifulSoup, Comment
 from urllib.parse import urljoin, urlparse
 
-def save_input_tags_to_html(url, max_depth=3):
+def save_input_tags_to_html(url, max_depth=2):
     print("now parsing...")
     visited_urls = set()
     content = []
 
+    ## parse html info with crawling algorithm
     def dfs_crawl(current_url, depth):
         nonlocal content, visited_urls
 
@@ -25,15 +26,48 @@ def save_input_tags_to_html(url, max_depth=3):
             # <input> 태그 찾기
             input_tags = soup.find_all('input')
 
-            # HTML 주석 찾기
-            html_comments = soup.find_all(string=lambda text: isinstance(text, Comment))
+            # <form> 태그 찾기
+            form_tags = soup.find_all('form')
 
-            # 현재 페이지 정보 추가
+            # 보안 관련 헤더 불러오기
+            security_headers = get_security_headers(current_url)
+
+            # 페이지 정보 기록
             page_info = {
                 'url': current_url,
                 'input_tags': input_tags,
-                'comments': html_comments
+                'forms': [],
+                'comments': [],
+                'security_headers': security_headers
             }
+
+            # 각 form 태그에 대해 GET 및 POST 요청을 보내고 결과를 기록
+            for form_tag in form_tags:
+                form_info = {
+                    'method': form_tag.get('method', 'GET'),
+                    'action': form_tag.get('action', ''),
+                    'response': {}
+                }
+
+                # GET 요청 보내기
+                get_response = requests.get(urljoin(current_url, form_info['action']))
+                form_info['response']['GET'] = {
+                    'status_code': get_response.status_code,
+                    'content': get_response.text
+                }
+
+                # POST 요청 보내기
+                post_response = requests.post(urljoin(current_url, form_info['action']))
+                form_info['response']['POST'] = {
+                    'status_code': post_response.status_code,
+                    'content': post_response.text
+                }
+
+                page_info['forms'].append(form_info)
+
+            # HTML 주석 찾기
+            html_comments = soup.find_all(string=lambda text: isinstance(text, Comment))
+            page_info['comments'] = html_comments
 
             content.append(page_info)
 
@@ -58,3 +92,22 @@ def save_input_tags_to_html(url, max_depth=3):
     dfs_crawl(url, 0)
 
     return content
+
+# 보안 관련 헤더 파싱
+def get_security_headers(url):
+    try:
+        response = requests.get(url)
+        response.raise_for_status()
+        security_headers = {
+            "Content-Security-Policy": response.headers.get("Content-Security-Policy", "❌"),
+            "X-Content-Type-Options": response.headers.get("X-Content-Type-Options", "❌"),
+            "X-Frame-Options": response.headers.get("X-Frame-Options", "❌"),
+            "X-XSS-Protection": response.headers.get("X-XSS-Protection", "❌"),
+            "Strict-Transport-Security": response.headers.get("Strict-Transport-Security", "❌"),
+            "Referrer-Policy": response.headers.get("Referrer-Policy", "❌"),
+            "Permissions-Policy": response.headers.get("Permissions-Policy", "❌"),
+        }
+        return security_headers
+    except requests.exceptions.RequestException as e:
+        print(f"Error fetching the URL: {e}")
+        return None
