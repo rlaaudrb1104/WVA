@@ -3,12 +3,99 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Directory Listing Result</title>
+    <title>WVA Tools</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      .grid-cell {
+        width: 100px;
+        height: 100px;
+      }
+
+      h2{
+        font-size: 1.125rem;
+        line-height: 1.75rem;
+      }
+
+      .page-info {
+        margin-bottom: 20px;
+      }
+
+      .hidden {
+        display: none;
+      }
+    </style>
   </head>
-  <body>
-    <h1>Directory Analysis Result</h1>
-    <p><a href="/directory">Go back to directory Page</a></p>
-    <p><a href="/">Go back to Home Page</a></p>
-    {{ result_html|safe }}
+  <body class="bg-gray-50 text-gray-900 font-sans">
+    <header class="bg-white shadow shadow-lg relative">
+      <nav
+        class="container mx-auto px-6 py-3 flex justify-between items-center"
+      >
+        <a href="/" class="text-3xl font-bold text-lime-600">WVA</a>
+        <div class="space-x-4">
+          <a
+            href="{{ url_for('input_tag_bp.input_tag') }}"
+            class="text-gray-500 hover:text-lime-600 font-bold"
+            >Site-Info Crawl</a
+          >
+          <a
+            href="{{ url_for('directory_bp.directory') }}"
+            class="text-gray-500 hover:text-lime-600 font-bold"
+            >File Vulnerability</a
+          >
+          <a
+            href="/sql-injection"
+            class="text-gray-500 hover:text-lime-600 font-bold"
+            >Sql Injection</a
+          >
+        
+        </div>
+      </nav>
+    </header>
+    <h1 class="font-bold text-lime-600 text-3xl flex justify-center m-5">
+      File Vulnerability
+    </h1>
+    <p class="flex justify-center text-gray-500">
+      Results of existing files.
+    </p>
+    <div class="flex flex-row justify-center">
+      <div class="flex flex-col mx-5 justify-center">
+        <a
+          href="/directory"
+          class="hover:bg-lime-800 my-2 bg-lime-600 font-bold text-gray-100 px-4 py-2 rounded-full hover:shadow hover:shadow-black justify-center text-center"
+          >Go back to File Vulnerability Page</a
+        >
+        <a
+          href="/"
+          class="hover:bg-lime-800 mt-2 mb-4 bg-lime-600 font-bold text-gray-100 px-4 py-2 rounded-full hover:shadow hover:shadow-black justify-center text-center"
+          >Go back to Home Page</a
+        >
+      </div>
+    </div>
+    <hr  />
+    <br  />
+
+    <summary class="my-2 font-bold cursor-pointer">Found File</summary>
+              {% if directory_found_list %}
+                <p class="mb-2 mx-5">{% for value in directory_found_list %}
+                  <p class="mx-5 mb-1">
+                    <div class="border-2 border-lime-500 max-w-fit font-bold bg-lime-200 rounded-md pr-1">
+                        🍀 {{ value }}
+                      </a>
+                    </div>
+                  </p>
+                  {% endfor %}
+                </p>
+            </details> {% else %}
+              <p class="mb-4 mx-5">not found.</p>
+            </details>
+              {% endif %}
+
+
   </body>
+    <img src="{{ url_for('static', filename='img/Arrow.png') }}", class="shadow shadow-black rounded-lg cursor-pointer fixed bottom-5 right-4 animate-bounce size-16" onclick="javascript:window.scrollTo(0,0);"></img>
+
 </html>

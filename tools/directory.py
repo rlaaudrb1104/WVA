@@ -3,7 +3,7 @@ import time
 
 
 def directory_listing(url):
-    cheatsheet_path = "C:/Users/skawl/OneDrive/바탕 화면/WVA/tools/directory_cheatsheet.txt"
+    cheatsheet_path = "./tools/directory_cheatsheet.txt"
     directory_index = []
 
     try:
@@ -36,7 +36,7 @@ def directory_listing(url):
         print(f"Error: {e}")
 
     save_to_file(
-        "C:/Users/skawl/OneDrive/바탕 화면/WVA/tools/directory_found_list.txt",
+        "./tools/directory_found_list.txt",
         directory_found_list,
     )
 

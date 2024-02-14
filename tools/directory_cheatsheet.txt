@@ -74,7 +74,7 @@ data.php
 database.asp
 database.js
 database.php
-dbase.php a
+dbase.php
 admin/access_log
 ../users.db.php
 users.db.php

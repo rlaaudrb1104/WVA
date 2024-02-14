@@ -1,14 +1,84 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Web Vulnerability Analysis</title>
-  </head>
-  <body>
-    <h1>Web Vulnerability Analysis</h1>
-    <a href="{{ url_for('input_tag_bp.input_tag') }}">Input Tag Analysis</a>
-    <a href="{{ url_for('comments_bp.comments') }}">Comments Analysis</a>
-    <a href="{{ url_for('directory_bp.directory') }}">Directory Analysis</a>
-  </body>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Web Vulnerabilities Analysis</title>
+<link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  .bg-filter {
+    background-color: rgba(0, 0, 0, 0.6);
+  }
+</style>
+</head>
+
+<body class="font-sans bg-white text-gray-800 overflow-y-hidden">
+  <header class="bg-white shadow shadow-lg relative">
+    <nav
+      class="container mx-auto px-6 py-3 flex justify-between items-center"
+    >
+      <a href="/" class="text-3xl font-bold text-lime-600">WVA</a>
+      <div class="space-x-4">
+        <a
+          href="{{ url_for('input_tag_bp.input_tag') }}"
+          class="text-gray-500 hover:text-lime-600 font-bold"
+          >Site-Info Crawl</a
+        >
+        <a
+          href="{{ url_for('directory_bp.directory') }}"
+          class="text-gray-500 hover:text-lime-600 font-bold"
+          >File Vulnerability</a
+        >
+        <a
+          href="/sql-injection"
+          class="text-gray-500 hover:text-lime-600 font-bold"
+          >Sql Injection</a
+        >
+        <a href="/xss" class="text-gray-500 hover:text-lime-600 font-bold"
+          >XSS</a
+        >
+      </div>
+    </nav>
+  </header>
+<!-- Background image with overlay -->
+<div class="relative min-h-screen max-h-80 bg-no-repeat bg-cover" style="background-image: url('https://source.unsplash.com/featured/?programming');">
+  <div class="absolute inset-0 bg-filter flex flex-col items-center justify-center">
+
+    <!-- Main content -->
+    <div class="px-4 sm:px-6 lg:px-8">
+      <div class="text-center">
+        <h1 class="text-5xl font-bold text-white mt-10 mb-4">Web Vulnerabilities Analysis</h1>
+        <p class="text-lg text-white mb-10">This is a website for web vulnerability analysis</p>
+      </div>
+
+      <!-- Feature links -->
+      <div class="flex flex-row mx-5 justify-center text-center">
+      <a
+        class="my-2 bg-lime-700 hover:bg-lime-800 font-bold text-gray-100 px-4 py-2 rounded-xl hover:shadow hover:shadow-black grid place-items-center hover:border-double mx-5 w-48"
+        href="{{ url_for('input_tag_bp.input_tag') }}"
+      >
+      ✏️ Site-Info Crawl
+      </a>
+      <a href="{{ url_for('directory_bp.directory') }}"
+        class="my-2 bg-lime-700 hover:bg-lime-800 font-bold text-gray-100 px-4 py-2 rounded-xl hover:shadow hover:shadow-black grid place-items-center hover:border-double mx-5 w-48"
+      >
+        🗂️ File Vulnerability
+      </a>
+      <a 
+        class="my-2 bg-lime-700 hover:bg-lime-800 font-bold text-gray-100 px-4 py-2 rounded-xl hover:shadow hover:shadow-black grid place-items-center hover:border-double mx-5 w-48"
+      >
+        📝 Sql Injection
+      </a>
+      <a 
+        class="my-2 bg-lime-700 hover:bg-lime-800 font-bold text-gray-100 px-4 py-2 rounded-xl hover:shadow hover:shadow-black grid place-items-center hover:border-double mx-5 w-48"
+      >
+        ❎ XSS
+      </a>
+    </div>
+
+  </div>
+</div>
+
+</body>
 </html>
