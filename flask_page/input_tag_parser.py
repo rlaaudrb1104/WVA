@@ -57,7 +57,8 @@ def save_input_tags_to_html(url, max_depth=2):
                 }
 
                 # POST 요청 보내기
-                post_response = requests.post(urljoin(current_url, form_info['action']))
+                post_data = {'submit': 'a'}  # 임의의 밸류 'a'
+                post_response = requests.post(urljoin(current_url, form_info['action']), data=post_data)
                 form_info['response']['POST'] = {
                     'status_code': post_response.status_code,
                     'content': post_response.text
