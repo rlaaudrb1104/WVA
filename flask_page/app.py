@@ -6,7 +6,8 @@ from flask_socketio import SocketIO,emit
 import threading
 from XSS_parser import XSS_Payload
 from flask import Flask, request, jsonify, render_template
-
+from SQL_parser import SQL_Payload_GET
+from SQL_parser import SQL_Payload_POST
 app = Flask(__name__)
 socketio = SocketIO(app)
 
@@ -29,6 +30,20 @@ def handle_test_xss(json):
     # 별도의 스레드에서 XSS 테스트 실행
     thread = threading.Thread(target=XSS_Payload, args=(json['url'], json['param'], socketio))
     thread.start()
-    
+
+@app.route('/SQL_Payload', methods=['GET'])
+def sql_payload_form():
+    return render_template('SQL_Payload.html')
+
+@socketio.on('test_sql_GET')
+def handle_test_sql(json):
+    thread = threading.Thread(target=SQL_Payload_GET, args=(json['url'], json['param'], socketio))
+    thread.start()
+
+@socketio.on('test_sql_POST')
+def handle_test_sql(json):
+    thread = threading.Thread(target=SQL_Payload_POST, args=(json['url'], json['param'], socketio))
+    thread.start()
+
 if __name__ == '__main__':
     socketio.run(app, debug=True)

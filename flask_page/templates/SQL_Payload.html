@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SQL Payload Test</title>
+    <!-- jQuery 라이브러리 추가 -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- Socket.IO 라이브러리 추가 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
+</head>
+<body>
+    <h2>SQL Payload Test</h2>
+    URL: <input type="text" id="url"><br>
+    Parameter: <input type="text" id="param"><br>
+    <button id="send">Send</button>
+    <div id="statusMessage">Result will appear here</div>
+    
+    <div id="testResults"></div>
+
+    <script>
+        $(document).ready(function() {
+            var socket = io.connect(); // 서버에 연결
+            
+            // 연결 상태 메시지 출력
+            socket.on('connect', function() {
+                $('#statusMessage').text('Connected to server via Socket.IO');
+            });
+
+            // SQL Payload 처리 시작 메시지 수신
+            socket.on('sql_start', function(msg) {
+                $('#statusMessage').text(msg.message); // 상태 메시지 표시
+            });
+
+            // 실시간으로 SQL Payload 처리 결과 수신
+            socket.on('sql_result', function(msg) {
+                $('#statusMessage').empty(); // 상태 메시지 제거
+                // 페이로드 결과를 안전하게 표시하기 위해 이스케이프 처리
+                var safeResult = $('<div>').text(msg.result).html();
+                $('#testResults').append(safeResult + "<br>"); // 결과를 페이지에 추가
+            });
+
+            // Send 버튼 클릭 이벤트 처리
+            $('#send').click(function() {
+                // 상태 메시지를 'Processing...'으로 변경
+                $('#statusMessage').text('Processing...');
+
+                // 입력 데이터를 객체로 구성
+                var payloadData = {
+                    url: $('#url').val(),
+                    param: $('#param').val()
+                };
+
+                // 서버로 Socket.IO를 통해 'test_sql' 이벤트와 함께 데이터 전송
+                socket.emit('test_sql_GET', payloadData);
+                //socket.emit('test_sql_POST',payloadData);
+            });
+        });
+    </script>
+</body>
+</html>

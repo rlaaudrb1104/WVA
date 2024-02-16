@@ -8,7 +8,7 @@ from selenium.common.exceptions import NoAlertPresentException, TimeoutException
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
-def XSS_Payload(url, name):
+def XSS_Payload(url, name, cookies):
     # Chrome 옵션 설정
     chrome_options = Options()
     chrome_options.add_argument("--headless")  # 헤드리스 모드 활성화
@@ -18,15 +18,15 @@ def XSS_Payload(url, name):
     driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=chrome_options)
     
     # 웹 페이지에 접근하기 전에 쿠키 추가
-    # driver.get(url)  # 쿠키를 추가하기 전에 도메인에 최소 한 번은 접근해야 함
-    # for cookie in cookies:
-    #     driver.add_cookie(cookie)
+    driver.get(url)  # 쿠키를 추가하기 전에 도메인에 최소 한 번은 접근해야 함
+    for cookie in cookies:
+        driver.add_cookie(cookie)
     
     # 쿠키 추가 후 페이지 재로드
     driver.get(url)
 
     # 페이로드 파일 읽기
-    with open("./flask_page/XSS_Payload.txt", 'r', encoding='utf-8') as file:
+    with open("XSS_Payload.txt", 'r', encoding='utf-8') as file:
         payloads = file.read().split('\n')
     
     for payload in payloads:
@@ -42,7 +42,6 @@ def XSS_Payload(url, name):
             pass
 
     driver.quit()
-    return Payload_result
 
 # 쿠키 예시 (사용할 쿠키 정보에 맞게 수정)
 cookies = [

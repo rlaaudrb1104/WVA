@@ -53,7 +53,7 @@
       It Needs Payload and Parameter
     </p>
     <div class="flex justify-center w-screeen">
-      <form id="xssForm" method="post" action="{{ url_for('XSS_Bypass_bp.XSS') }}">
+      <form id="sqlForm" method="post" action="{{ url_for('SQL_Payload_GET_bp.SQL_G') }}">
         
         <label for="url" class="my-5 font-bold">Enter URL:</label>
         <div class="relative box-border mt-5 mb-2">
@@ -134,6 +134,7 @@
         >
           Submit
         </button>
+        
         <p>
           <a
             href="/"
@@ -150,12 +151,12 @@
     <!--cookie script-->
     <script>
       document.addEventListener('DOMContentLoaded', function () {
-        const form = document.getElementById('xssForm');
+        const form = document.getElementById('sqlForm');
         const cookieCountRadios = form.querySelectorAll('input[name="cookieCount"]');
         const cookieInputsContainer = document.getElementById('cookieInputsContainer');
         const cookieInputs1 = document.getElementById('cookieInputs1');
         const cookieInputs2 = document.getElementById('cookieInputs2');
-    
+        
         cookieCountRadios.forEach(radio => {
           radio.addEventListener('change', function () {
             switch (this.value) {
