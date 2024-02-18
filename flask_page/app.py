@@ -16,8 +16,6 @@ socketio = SocketIO(app)
 app.register_blueprint(input_tag_bp)
 app.register_blueprint(XSS_Bypass_bp)
 app.register_blueprint(directory_bp)
-app.register_blueprint(SQL_Payload_GET_bp)
-app.register_blueprint(SQL_Payload_POST_bp)
 
 @app.route('/')
 def index():
