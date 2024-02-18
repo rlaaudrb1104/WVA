@@ -26,17 +26,24 @@
           >Site-Info Crawl</a
         >
         <a
-          href="/directory-listing"
+          href="{{ url_for('directory_bp.directory') }}"
           class="text-gray-500 hover:text-lime-600 font-bold"
           >File Vulnerability</a
         >
         <a
-          href="/sql-injection"
+          href="/SQL_Payload"
           class="text-gray-500 hover:text-lime-600 font-bold"
           >Sql Injection</a
         >
-        <a href="{{ url_for('XSS_Bypass_bp.XSS') }}" class="text-gray-500 hover:text-lime-600 font-bold"
-          >XSS</a
+        <a
+          href="{{ url_for('XSS_Bypass_bp.XSS') }}"
+          class="text-gray-500 hover:text-lime-600 font-bold"
+          >XSS[B]</a
+        >
+        <a
+          href="xss-p"
+          class="text-gray-500 hover:text-lime-600 font-bold"
+          >XSS[P]</a
         >
       </div>
     </nav>
@@ -61,11 +68,13 @@
       ✏️ Site-Info Crawl
       </a>
       <a
+      href="{{ url_for('directory_bp.directory') }}"
         class="my-2 bg-lime-700 hover:bg-lime-800 font-bold text-gray-100 px-4 py-2 rounded-xl hover:shadow hover:shadow-black grid place-items-center hover:border-double mx-5 w-48"
       >
         🗂️ File Vulnerability
       </a>
       <a
+        href="SQL_Payload"
         class="my-2 bg-lime-700 hover:bg-lime-800 font-bold text-gray-100 px-4 py-2 rounded-xl hover:shadow hover:shadow-black grid place-items-center hover:border-double mx-5 w-48"
       >
         📝 Sql Injection
@@ -73,7 +82,12 @@
       <a href="{{ url_for('XSS_Bypass_bp.XSS') }}" 
         class="my-2 bg-lime-700 hover:bg-lime-800 font-bold text-gray-100 px-4 py-2 rounded-xl hover:shadow hover:shadow-black grid place-items-center hover:border-double mx-5 w-48"
       >
-        ❎ XSS
+        ❎ XSS[B]
+      </a>
+      <a href="xss-p" 
+        class="my-2 bg-lime-700 hover:bg-lime-800 font-bold text-gray-100 px-4 py-2 rounded-xl hover:shadow hover:shadow-black grid place-items-center hover:border-double mx-5 w-48"
+      >
+        ✖️ XSS[P]
       </a>
     </div>
 

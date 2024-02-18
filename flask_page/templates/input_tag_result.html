@@ -41,21 +41,28 @@
         <div class="space-x-4">
           <a
             href="{{ url_for('input_tag_bp.input_tag') }}"
-            class="text-gray-500 hover:text-lime-600 font-bold"
+            class="text-lime-600 font-bold"
             >Site-Info Crawl</a
           >
           <a
-            href="/directory-listing"
+            href="{{ url_for('directory_bp.directory') }}"
             class="text-gray-500 hover:text-lime-600 font-bold"
             >File Vulnerability</a
           >
           <a
-            href="/sql-injection"
+            href="/SQL_Payload"
             class="text-gray-500 hover:text-lime-600 font-bold"
             >Sql Injection</a
           >
-          <a href="{{ url_for('XSS_Bypass_bp.XSS') }}" class="text-gray-500 hover:text-lime-600 font-bold"
-            >XSS</a
+          <a
+            href="{{ url_for('XSS_Bypass_bp.XSS') }}"
+            class="text-gray-500 hover:text-lime-600 font-bold"
+            >XSS[B]</a
+          >
+          <a
+            href="xss-p"
+            class="text-gray-500 hover:text-lime-600 font-bold"
+            >XSS[P]</a
           >
         </div>
       </nav>
@@ -96,7 +103,10 @@
         <div id="content_{{ loop.index }}" class="hidden bg-lime-100 border-lime-200 p-2 rounded-md mx-10">
           
           <!--Hyperlink-->
-          <a href="{{ page_info['url'] }}" target="_blank" rel="noopener noreferrer" class="mx-2 pl-1 pr-2 my-2 border-4 rounded-md border-lime-300 bg-lime-300 "><strong>🔗 Go to </strong> {{ page_info['url'] }}</a>
+          <a href="{{ page_info['url'] }}" target="_blank" rel="noopener noreferrer" class="mx-2 pl-1 pr-2 my-2 border-4 rounded-md border-lime-300 bg-lime-300 ">
+            <strong>🔗 Go to </strong> 
+            {{ page_info['url'] }}
+          </a>
           
           <!--CSP & Security header-->
           <div class="mx-5">
@@ -200,6 +210,8 @@
         content.classList.toggle("hidden")
       }
     </script>
+    
+    <!--Scroll Btn script-->
     <img src="{{ url_for('static', filename='img/Arrow.png') }}" class="rounded-full cursor-pointer fixed bottom-5 right-4 animate-bounce size-16 scroll-to-top" onclick="javascript:window.scrollTo(0,0);">
     <script>
         window.onscroll = function() {scrollFunction()};

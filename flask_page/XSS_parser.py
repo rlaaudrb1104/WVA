@@ -37,10 +37,12 @@ def XSS_Bypass(url, name):
     driver.get(target_url)
     
     if Bypass not in driver.page_source:
-      Bypass_result_T += Bypass + "|"
+      Bypass_result_T += " " + Bypass + " "
     else:
-      Bypass_result_F += Bypass + "|"
-  Bypass_result = f"필터링O : {Bypass_result_T} \n필터링X : {Bypass_result_F}"
+      Bypass_result_F += " " + Bypass + " "
+    
+    Bypass_result = f"🍀 필터링O : {Bypass_result_T} \n      🍀 필터링X : {Bypass_result_F}</P>"
+
   driver.quit()
   return Bypass_result
 
