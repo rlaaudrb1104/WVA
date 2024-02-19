@@ -20,7 +20,7 @@ def directory_listing(url, cheatsheet_path):
             directory_index = directory_cheatsheet.read().split("\n")
             
             for directory in directory_index:
-                directory_url = f"{url}/{directory}"
+                directory_url = f"{url}{directory}"
                 if is_valid_directory(directory_url):
                     directory_found_list.append(directory_url)
     

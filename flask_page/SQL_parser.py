@@ -12,7 +12,7 @@ def SQL_Payload_GET(url, param, socketio):
         full_url = f"{url}?{param}={payload}"
         r = requests.get(full_url)
         
-        if r.status_code == 200:
+        if r.status_code == 500:
             result = f"{payload} 통함"
             print(f"{payload} 통함")
             Payload_result.append(result)
@@ -32,7 +32,7 @@ def SQL_Payload_POST(url, param, socketio):
         data = {param: payload}
         r = requests.post(url, data=data)
         
-        if r.status_code == 200:
+        if r.status_code == 500:
             result = f"{payload} 통함"
             print(f"{payload} 통함")
             Payload_result.append(result)
