@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SQL Injection Test Result</title>
+  </head>
+  <body>
+    <h1>SQL Injection Test Result</h1>
+    <div>
+      <h3>Result:</h3>
+      <ul>
+        {% for result in SQL_result %}
+        <li>{{ result }}</li>
+        {% endfor %}
+      </ul>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,132 @@
+<!-- directory_result.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>File Vulnerability</title>
+    <link
+      rel="shortcut icon"
+      href="{{ url_for('static', filename='favicon.ico') }}"
+    />
+    <link
+      rel="shortcut icon"
+      href="{{ url_for('static', filename='favicon.ico') }}"
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      .grid-cell {
+        width: 100px;
+        height: 100px;
+      }
+
+      .page-info {
+        margin-bottom: 20px;
+      }
+
+      .hidden {
+        display: none;
+      }
+      .scroll-to-top {
+        display: none;
+        opacity: 0;
+        transition: opacity 0.3s ease-in-out;
+      }
+      .scroll-to-top.show {
+        display: block;
+        opacity: 1;
+      }
+    </style>
+  </head>
+  <body class="font-sans bg-white text-gray-800">
+    <!--Top navigation bar-->
+    <header class="bg-white shadow shadow-lg relative">
+      <nav
+        class="container mx-auto px-6 py-3 flex justify-between items-center"
+      >
+        <a href="/" class="text-3xl font-bold text-lime-600">WVA</a>
+        <div class="space-x-4">
+          <a
+            href="{{ url_for('input_tag_bp.input_tag') }}"
+            class="text-gray-500 hover:text-lime-600 font-bold"
+            >Site-Info Crawl</a
+          >
+          <a
+            href="{{ url_for('directory_bp.directory') }}"
+            class="text-lime-600 font-bold"
+            >File Vulnerability</a
+          >
+          <a
+            href="/SQL_Payload"
+            class="text-gray-500 hover:text-lime-600 font-bold"
+            >Sql Injection</a
+          >
+          <a
+            href="{{ url_for('XSS_Bypass_bp.XSS') }}"
+            class="text-gray-500 hover:text-lime-600 font-bold"
+            >XSS[B]</a
+          >
+          <a href="xss-p" class="text-gray-500 hover:text-lime-600 font-bold"
+            >XSS[P]</a
+          >
+        </div>
+      </nav>
+    </header>
+
+    <!--Body contents-->
+    <h1 class="font-bold text-lime-600 text-3xl flex justify-center m-5">
+      File Vulnerability Check Result
+    </h1>
+    <p class="flex justify-center text-gray-500">
+      Lists the url for which the response came.
+    </p>
+    <div class="flex flex-row justify-center">
+      <div class="flex flex-col mx-5 justify-center">
+        <a
+          href="/directory"
+          class="hover:bg-lime-800 my-2 bg-lime-600 font-bold text-gray-100 px-4 py-2 rounded-full hover:shadow hover:shadow-black justify-center text-center"
+          >Go back to File Vulnerability Page</a
+        >
+        <a
+          href="/"
+          class="hover:bg-lime-800 mt-2 mb-4 bg-lime-600 font-bold text-gray-100 px-4 py-2 rounded-full hover:shadow hover:shadow-black justify-center text-center"
+          >Go back to Home Page</a
+        >
+      </div>
+    </div>
+    <hr />
+    <br />
+    <div class="mx-5 bg-lime-100 rounded-md p-5">
+      <ul>
+        {% for directory in directory_found_list %}
+        <a href="{{ directory }}" target="_blank" rel="noopener noreferrer">
+          <li class="font-bold">🍀 {{ directory }}</li>
+        </a>
+        {% endfor %}
+      </ul>
+    </div>
+    <!--Scroll Btn script-->
+    <img
+      src="{{ url_for('static', filename='img/Arrow.png') }}"
+      class="rounded-full cursor-pointer fixed bottom-5 right-4 animate-bounce size-16 scroll-to-top"
+      onclick="javascript:window.scrollTo(0,0);"
+    />
+    <script>
+      window.onscroll = function () {
+        scrollFunction()
+      }
+
+      function scrollFunction() {
+        if (
+          document.body.scrollTop > 20 ||
+          document.documentElement.scrollTop > 20
+        ) {
+          document.querySelector(".scroll-to-top").classList.add("show")
+        } else {
+          document.querySelector(".scroll-to-top").classList.remove("show")
+        }
+      }
+    </script>
+  </body>
+</html>

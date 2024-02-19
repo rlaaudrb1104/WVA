@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>WVA Tools</title>
+    <link
+      rel="shortcut icon"
+      href="{{ url_for('static', filename='favicon.ico') }}"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- jQuery 라이브러리 추가 -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- Socket.IO 라이브러리 추가 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
+    <style>
+      .grid-cell {
+        width: 100px;
+        height: 100px;
+      }
+    </style>
+  </head>
+  <body>
+    <header class="bg-white shadow shadow-lg relative">
+      <nav
+        class="container mx-auto px-6 py-3 flex justify-between items-center"
+      >
+        <a href="/" class="text-3xl font-bold text-lime-600">WVA</a>
+        <div class="space-x-4">
+          <a
+            href="{{ url_for('input_tag_bp.input_tag') }}"
+            class="text-gray-500 hover:text-lime-600 font-bold"
+            >Site-Info Crawl</a
+          >
+          <a
+            href="{{ url_for('directory_bp.directory') }}"
+            class="text-gray-500 hover:text-lime-600 font-bold"
+            >File Vulnerability</a
+          >
+          <a href="/SQL_Payload" class="text-lime-600 font-bold"
+            >Sql Injection</a
+          >
+          <a
+            href="{{ url_for('XSS_Bypass_bp.XSS') }}"
+            class="text-gray-500 hover:text-lime-600 font-bold"
+            >XSS[B]</a
+          >
+          <a href="xss-p" class="text-gray-500 hover:text-lime-600 font-bold"
+            >XSS[P]</a
+          >
+        </div>
+      </nav>
+    </header>
+    <h1 class="font-bold text-lime-600 text-3xl flex justify-center m-5">
+      SQL Payload Test
+    </h1>
+    <p class="flex justify-center text-gray-500 mt-5 text-center">
+      It needs payload and parameter.
+    </p>
+    <p class="flex justify-center text-gray-500 mb-5 text-center">
+      And may needs cookies.
+    </p>
+    <div class="flex flex-row justify-center">
+      <div class="flex justify-center">
+        <div
+          name="input"
+          class="py-5 pl-5 pr-10 m-5 w-full border-r-1 border-gray-200 flex flex-col"
+        >
+          <label for="url" class="my-5 font-bold">Enter URL:</label>
+          <div class="relative box-border mt-5 mb-2">
+            <input
+              class="font-bold border-b-4 border-lime-600 w-96 h-8 rounded-full outline-0 bg-gray-200 px-5"
+              type="text"
+              id="url"
+              required
+            />
+          </div>
+          <label for="url" class="my-5 font-bold">Enter Parameter:</label>
+          <input
+            class="font-bold border-b-4 border-lime-600 w-96 h-8 rounded-full outline-0 bg-gray-200 px-5"
+            type="text"
+            id="param"
+            required
+          />
+          <div class="flex-col mt-2">
+            <label for="url" class="my-5 font-bold">Select number of cookies:</label>
+          <!-- 쿠키 개수를 선택하는 스위치 -->
+          <select id="cookieSwitch">
+            <option value="0">0</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+          </select>
+          <!-- 쿠키 입력창들 -->
+          <div id="cookieInputs" class="flex flex-col"></div>
+          <!-- HTTP 메서드 선택하는 스위치 -->
+          <label for="url" class="my-5 font-bold">Select HTTP Method:</label>
+          <select id="methodSwitch">
+            <option value="get">GET</option>
+            <option value="post">POST</option>
+          </select>
+          <button 
+          type="button"
+          id="send" 
+          class="mb-4 bg-lime-600 hover:bg-lime-800 font-bold text-gray-100 px-4 py-2 rounded-full hover:shadow hover:shadow-black"
+          >
+            Send
+          </button>
+        </div>
+
+    </div>
+
+    <div name="result" class="p-5 m-5 bg-lime-100 rounded-md min-w-96 max-w-96 max-h-96 overflow-x-auto overflow-y-scroll">
+      <div id="statusMessage">Result will appear here</div>
+      <div id="testResults"></div>
+
+      <script>
+        $(document).ready(function () {
+          var socket = io.connect() // 서버에 연결
+
+          // 연결 상태 메시지 출력
+          socket.on("connect", function () {
+            $("#statusMessage").text("Connected to server via Socket.IO")
+          })
+
+          // SQL Payload 처리 시작 메시지 수신
+          socket.on("sql_start", function (msg) {
+            $("#statusMessage").text(msg.message) // 상태 메시지 표시
+          })
+
+          // 실시간으로 SQL Payload 처리 결과 수신
+          socket.on("sql_result", function (msg) {
+            $("#statusMessage").empty() // 상태 메시지 제거
+            // 페이로드 결과를 안전하게 표시하기 위해 이스케이프 처리
+            var safeResult = $("<div>").text(msg.result).html()
+            $("#testResults").append(safeResult + "<br>") // 결과를 페이지에 추가
+          })
+
+          // Send 버튼 클릭 이벤트 처리
+          $("#send").click(function () {
+            event.preventDefault(); 
+            // 상태 메시지를 'Processing...'으로 변경
+            $("#statusMessage").text("Processing...")
+
+            // 입력 데이터를 객체로 구성
+            var payloadData = {
+              url: $("#url").val(),
+              param: $("#param").val(),
+              // 선택된 쿠키 개수 가져오기
+              cookies: $("#cookieSwitch").val(),
+              // 선택된 HTTP 메서드 가져오기
+              method: $("#methodSwitch").val(),
+            }
+
+            // 서버로 Socket.IO를 통해 'test_sql' 이벤트와 함께 데이터 전송
+            var eventName =
+              payloadData.method === "get" ? "test_sql_GET" : "test_sql_POST"
+            print(eventName)
+            socket.emit(eventName, payloadData)
+          })
+
+          // 쿠키 개수를 선택하는 스위치 변경 이벤트 처리
+          $("#cookieSwitch").change(function () {
+            var numCookies = $(this).val()
+            // 이전에 추가된 쿠키 입력창 제거
+            $("#cookieInputs").empty()
+            // 선택된 쿠키 개수에 따라 쿠키 입력창 추가
+            for (var i = 0; i < numCookies; i++) {
+              $("#cookieInputs").append(
+                '<label class="mt-2 mb-1 font-bold">Cookie Name:</label><input type="text" class="m-1 font-bold border-b-4 border-lime-600 w-96 h-8 rounded-full outline-0 bg-gray-200 px-5 cookieName">'
+              )
+              $("#cookieInputs").append(
+                '<label class="mt-1 mb-2 font-bold">Cookie Value:</label><input type="text" class="m-1 font-bold border-b-4 border-lime-600 w-96 h-8 rounded-full outline-0 bg-gray-200 px-5 cookieValue">'
+              )
+            }
+          })
+        })
+      </script>
+    </div>
+
+  </body>
+</html>
+
+
